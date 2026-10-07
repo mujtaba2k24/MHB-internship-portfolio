@@ -1,37 +1,69 @@
 #hero-canvas {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.8;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(142, 180, 198, 0.25);
+  overflow: hidden;
+  background: radial-gradient(circle at 48% 38%, rgba(110, 166, 176, 0.2), rgba(11, 20, 28, 0.45));
+  box-shadow: var(--shadow-card);
 }
 
-.panel {
-  transform-style: preserve-3d;
-  transition: transform 240ms ease, border-color 240ms ease;
+.concept-orbit {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.panel:hover {
-  transform: perspective(1000px) translateY(-3px) rotateX(1deg) rotateY(-1deg);
-  border-color: rgba(159, 225, 207, 0.55);
+.concept-orbit li {
+  position: absolute;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: rgba(238, 242, 246, 0.78);
+  border: 1px solid rgba(142, 180, 198, 0.25);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: rgba(9, 17, 24, 0.58);
+  backdrop-filter: blur(3px);
 }
+
+.concept-orbit li:nth-child(1) { top: 10%; left: 8%; }
+.concept-orbit li:nth-child(2) { top: 19%; right: 9%; }
+.concept-orbit li:nth-child(3) { top: 45%; right: 5%; }
+.concept-orbit li:nth-child(4) { bottom: 16%; left: 7%; }
+.concept-orbit li:nth-child(5) { bottom: 9%; right: 12%; }
 
 .roadmap-canvas-wrap {
-  border-radius: 0.75rem;
+  min-height: 250px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: radial-gradient(circle at 50% 42%, rgba(110, 166, 176, 0.16), rgba(0, 0, 0, 0.18));
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  min-height: 220px;
-  background: rgba(0, 0, 0, 0.2);
+}
+
+.roadmap-phase-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.section-card,
+.section-card:hover {
+  transform-style: preserve-3d;
+}
+
+.section-card:hover {
+  border-color: rgba(139, 190, 200, 0.52);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel,
-  .panel:hover {
-    transition: none;
-    transform: none;
+  #hero-canvas,
+  .roadmap-canvas-wrap {
+    background: rgba(255, 255, 255, 0.02);
   }
 
-  #hero-canvas {
-    display: none;
+  .section-card:hover {
+    box-shadow: var(--shadow-soft);
   }
 }

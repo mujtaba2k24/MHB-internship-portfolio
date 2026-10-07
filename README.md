@@ -2,53 +2,77 @@
 
 Applied Linguistics Internship Portfolio — MUJTABA HUSSAIN BHATTI
 
-## Project Scope
+## Phase-Two Framework
 
-This repository contains a premium, immersive, and academically grounded internship portfolio scaffold for:
+This repository now contains a premium, immersive, evidence-first academic internship portfolio framework for:
 
-- **BS English Applied Linguistics**
-- **University of Sindh Jamshoro (IELL)**
+- BS English Applied Linguistics (6th Semester)
+- University of Sindh Jamshoro · Institute of English Language & Literature (IELL)
 - Internship title: **Applied Linguistics in Public Administration and Education**
 - Placement: **Revenue Administration, Hyderabad Rural**
 - Duration: **60–80 hours**
 
-The site is intentionally evidence-first. It uses placeholders where data is not yet available and avoids fabricated content.
+The framework is intentionally truthful and non-fabricated. It is prepared for real internship data to be added gradually.
 
 ## Stack
 
-- Plain **HTML/CSS/JavaScript**
-- Optional lightweight 3D using **Three.js (CDN module import)**
-- Static structure suitable for **GitHub Pages**
+- Plain HTML/CSS/JavaScript
+- Lightweight Three.js (CDN module import) for hero and roadmap visuals
+- Static GitHub Pages compatible architecture
 
-## Current Structure
+## Architecture
 
-- `index.html` – single-page portfolio shell
-- `assets/css/` – base, components, 3D, responsive styles
-- `assets/js/` – section rendering, templates, and 3D modules
-- `assets/media/` – photos/documents/icons placeholders
-- `data/` – optional editable JSON placeholders
+- `index.html` (semantic, static-first 20-section portfolio)
+- `assets/css/`
+  - `base.css`
+  - `components.css`
+  - `3d.css`
+  - `responsive.css`
+- `assets/js/`
+  - `main.js`
+  - `content-data.js`
+  - `logbook.js`
+  - `journal.js`
+  - `evidence.js`
+  - `three-hero.js`
+  - `three-roadmap.js`
+- `assets/media/` (`photos/`, `documents/`, `icons/`)
+- `data/` optional JSON placeholders
 
-## Editing Workflow (Non-Programmer Friendly)
+## Evidence Status System
 
-1. Edit portfolio text structure in:
-   - `assets/js/content-data.js`
-2. Edit logbook/journal/evidence placeholders in:
-   - `assets/js/logbook.js`
-   - `assets/js/journal.js`
-   - `assets/js/evidence.js`
-3. (Optional) Keep data copies in:
-   - `data/*.json`
-4. Add authorized files only to:
-   - `assets/media/photos/`
-   - `assets/media/documents/`
+Use these states only when appropriate evidence exists:
 
-## Evidence and Privacy Rules
+- PLANNED
+- OBSERVED
+- COMPLETED
+- REFLECTED
+- VERIFIED
 
-- Do not upload confidential government or personal citizen data.
-- Do not fabricate observations, sessions, hours, findings, or evaluations.
-- Tag records clearly as **PLANNED / OBSERVED / COMPLETED / REFLECTED / VERIFIED**.
-- Publish only authorized and anonymized evidence.
+Current scaffold defaults internship activity placeholders to **PLANNED**.
+
+## Privacy and Confidentiality Rules
+
+Never upload:
+
+- private citizen data
+- land/revenue records
+- private addresses
+- PINs
+- medical details
+- confidential government documents
+- sensitive identifiable information
+
+Only publish authorized, anonymized, and verifiable evidence.
+
+## Editing Workflow
+
+1. Update status framework and roadmap content in `assets/js/content-data.js`.
+2. Update logbook templates in `assets/js/logbook.js`.
+3. Update reflective prompts in `assets/js/journal.js`.
+4. Update evidence categories in `assets/js/evidence.js`.
+5. Add authorized media to `assets/media/photos/` and `assets/media/documents/`.
 
 ## Local Preview
 
-Open `index.html` in a browser, or serve the repository with a static server.
+Open `index.html` directly in a browser, or run any simple static file server.

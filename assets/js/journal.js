@@ -1,12 +1,24 @@
 export const journalTemplate = [
   {
-    title: "Reflection Entry 01",
-    prompt: "What communication challenge did I face today, and how did I adapt language for audience/context?",
+    title: "Reflective Entry Template A",
+    prompts: [
+      "What happened during this internship activity?",
+      "What did I learn from this interaction or task?",
+      "Which language/communication issue was relevant?",
+      "Which Applied Linguistics concept connects to this experience?",
+      "What would I improve in future practice?",
+      "What evidence supports this reflection?",
+    ],
     status: "PLANNED",
   },
   {
-    title: "Reflection Entry 02",
-    prompt: "How did theory from applied linguistics help interpret today’s teaching or institutional interaction?",
+    title: "Reflective Entry Template B",
+    prompts: [
+      "How did context influence communication choices?",
+      "How did teaching/institutional communication differ?",
+      "What sociolinguistic or multilingual framework is useful here?",
+      "How will this inform the final report and viva?",
+    ],
     status: "PLANNED",
   },
 ];
