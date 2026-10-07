@@ -1,0 +1,37 @@
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.panel {
+  transform-style: preserve-3d;
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.panel:hover {
+  transform: perspective(1000px) translateY(-3px) rotateX(1deg) rotateY(-1deg);
+  border-color: rgba(159, 225, 207, 0.55);
+}
+
+.roadmap-canvas-wrap {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  min-height: 220px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel:hover {
+    transition: none;
+    transform: none;
+  }
+
+  #hero-canvas {
+    display: none;
+  }
+}

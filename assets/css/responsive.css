@@ -1,0 +1,23 @@
+@media (min-width: 860px) {
+  .section-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-grid .panel:nth-child(1),
+  .section-grid .panel:nth-child(2),
+  .section-grid .panel:nth-child(5),
+  .section-grid .panel:nth-child(10),
+  .section-grid .panel:nth-child(18) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding-top: 3rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+}
