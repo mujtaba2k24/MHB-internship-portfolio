@@ -1,11 +1,11 @@
 #hero-canvas {
   position: absolute;
   inset: 0;
-  border-radius: 1.2rem;
-  border: 1px solid rgba(142, 180, 198, 0.25);
+  border-radius: 1.1rem;
+  border: 1px solid rgba(127, 164, 198, 0.35);
   overflow: hidden;
-  background: radial-gradient(circle at 48% 38%, rgba(110, 166, 176, 0.2), rgba(11, 20, 28, 0.45));
-  box-shadow: var(--shadow-card);
+  background: radial-gradient(circle at 46% 40%, rgba(100, 168, 175, 0.28), rgba(8, 18, 28, 0.56));
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.35);
 }
 
 .concept-orbit {
@@ -16,54 +16,75 @@
 
 .concept-orbit li {
   position: absolute;
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  color: rgba(238, 242, 246, 0.78);
-  border: 1px solid rgba(142, 180, 198, 0.25);
+  z-index: 2;
+  font-size: 0.69rem;
+  letter-spacing: 0.05em;
   border-radius: 999px;
-  padding: 0.25rem 0.55rem;
-  background: rgba(9, 17, 24, 0.58);
-  backdrop-filter: blur(3px);
+  border: 1px solid rgba(127, 164, 198, 0.36);
+  background: rgba(5, 12, 19, 0.66);
+  color: #dbe7f2;
+  padding: 0.24rem 0.5rem;
 }
 
-.concept-orbit li:nth-child(1) { top: 10%; left: 8%; }
-.concept-orbit li:nth-child(2) { top: 19%; right: 9%; }
-.concept-orbit li:nth-child(3) { top: 45%; right: 5%; }
-.concept-orbit li:nth-child(4) { bottom: 16%; left: 7%; }
-.concept-orbit li:nth-child(5) { bottom: 9%; right: 12%; }
+.concept-orbit li:nth-child(1) {
+  top: 8%;
+  left: 7%;
+}
+
+.concept-orbit li:nth-child(2) {
+  top: 10%;
+  right: 8%;
+}
+
+.concept-orbit li:nth-child(3) {
+  top: 35%;
+  right: 5%;
+}
+
+.concept-orbit li:nth-child(4) {
+  top: 52%;
+  left: 4%;
+}
+
+.concept-orbit li:nth-child(5) {
+  bottom: 26%;
+  right: 9%;
+}
+
+.concept-orbit li:nth-child(6) {
+  bottom: 14%;
+  left: 11%;
+}
+
+.concept-orbit li:nth-child(7) {
+  bottom: 7%;
+  right: 16%;
+}
 
 .roadmap-canvas-wrap {
-  min-height: 250px;
+  min-height: 310px;
   border-radius: var(--radius);
   border: 1px solid var(--line-soft);
-  background: radial-gradient(circle at 50% 42%, rgba(110, 166, 176, 0.16), rgba(0, 0, 0, 0.18));
   overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, rgba(100, 168, 175, 0.18), rgba(0, 0, 0, 0.2));
 }
 
-.roadmap-phase-list {
-  margin: 0;
-  padding-left: 1.1rem;
-  display: grid;
-  gap: 0.75rem;
-}
-
-.section-card,
-.section-card:hover {
+.section-card {
   transform-style: preserve-3d;
 }
 
 .section-card:hover {
-  border-color: rgba(139, 190, 200, 0.52);
-  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
+  border-color: rgba(127, 164, 198, 0.52);
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.33);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .section-card:hover {
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+  }
+
   #hero-canvas,
   .roadmap-canvas-wrap {
     background: rgba(255, 255, 255, 0.02);
-  }
-
-  .section-card:hover {
-    box-shadow: var(--shadow-soft);
   }
 }
