@@ -371,3 +371,188 @@ button:focus-visible {
     scroll-behavior: auto;
   }
 }
+
+/* =========================================
+   VINTAGE ACADEMIA — STEP 1
+   Parchment, botanical colours and bookish typography
+   ========================================= */
+
+:root {
+  --bg: #F1E7D5;
+  --bg-2: #E8DCC6;
+  --surface: #F8F1E5;
+  --surface-2: #EDE1CF;
+  --line: #C9B79D;
+  --line-soft: #DCCDB8;
+
+  --text: #49372F;
+  --text-soft: #665448;
+  --heading: #3D2D26;
+
+  --accent: #788064;
+  --accent-2: #AC7058;
+  --focus: #8B6045;
+
+  --shadow: 0 12px 32px rgba(73, 55, 47, 0.12);
+}
+
+/* Warm paper atmosphere */
+body {
+  color: var(--text);
+  background:
+    radial-gradient(
+      ellipse at 12% 8%,
+      rgba(214, 196, 165, 0.28),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 88% 30%,
+      rgba(120, 128, 100, 0.09),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      #F5EDDF 0%,
+      var(--bg) 52%,
+      #EDE1CF 100%
+    );
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading);
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", serif;
+  letter-spacing: -0.025em;
+}
+
+p,
+li {
+  color: var(--text-soft);
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline-color: var(--focus);
+}
+
+/* Antique progress line */
+.scroll-progress {
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    #D6C4A5,
+    var(--accent-2)
+  );
+}
+
+/* Elegant academic labels */
+.topbar-title,
+.eyebrow {
+  color: var(--accent);
+}
+
+.eyebrow {
+  letter-spacing: 0.12em;
+}
+
+/* Botanical buttons and paper-like chips */
+.menu-toggle,
+.menu-close,
+.meta-chip,
+.button-primary,
+.button-secondary {
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.menu-toggle,
+.menu-close,
+.meta-chip,
+.button-secondary {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.button-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(120, 128, 100, 0.22),
+    rgba(214, 196, 165, 0.48)
+  );
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  border-color: var(--accent);
+}
+
+/* Vintage identity detail */
+.hero-identity {
+  border-left-color: var(--accent-2);
+}
+
+.visual-note {
+  color: var(--text-soft);
+}
+
+/* Warm navigation — keep it readable and sticky */
+.site-nav {
+  background: rgba(241, 231, 213, 0.94);
+  border-color: var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.quick-nav a {
+  color: var(--text-soft);
+}
+
+.quick-nav a.active,
+.quick-nav a:hover,
+.quick-nav a:focus-visible {
+  color: var(--heading);
+  border-color: var(--line);
+  background: rgba(120, 128, 100, 0.12);
+}
+
+/* Contents panel */
+.contents-panel {
+  background: rgba(61, 45, 38, 0.48);
+}
+
+.contents-dialog {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.contents-groups section {
+  background: rgba(214, 196, 165, 0.18);
+  border-color: var(--line-soft);
+}
+
+.contents-groups a {
+  color: var(--text-soft);
+}
+
+.contents-groups a:hover,
+.contents-groups a:focus-visible {
+  color: var(--accent);
+}
+
+/* Footer and section borders */
+.site-footer {
+  border-color: var(--line);
+}
+
+/* Preserve a clear keyboard focus indicator */
+::selection {
+  color: #FFF9EF;
+  background: #788064;
+}
+
