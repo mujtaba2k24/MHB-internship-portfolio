@@ -33,7 +33,7 @@ export default function Achievements() {
             transition={{ duration: 0.9, delay: i * 0.08, ease: EASE }}
           >
             <Tilt max={8} className="group h-full rounded-2xl">
-              <article className="relative flex h-full min-h-[340px] flex-col items-center overflow-hidden rounded-2xl bg-[radial-gradient(120%_80%_at_50%_0%,#2a1f10,#0d0b08_60%,#07070a)] px-5 pb-6 pt-8 text-center ring-1 ring-[#d9b46a]/20 transition duration-500 group-hover:ring-[#d9b46a]/60">
+              <article className="relative flex h-full min-h-[340px] flex-col items-center justify-center overflow-hidden rounded-2xl bg-[radial-gradient(120%_80%_at_50%_0%,#2a1f10,#0d0b08_60%,#07070a)] px-5 py-8 text-center ring-1 ring-[#d9b46a]/20 transition duration-500 group-hover:ring-[#d9b46a]/60">
                 <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d9b46a]/70 to-transparent" />
                 <div aria-hidden className="absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-[#d9b46a]/10 blur-3xl transition duration-700 group-hover:bg-[#d9b46a]/25" />
                 <div className="relative flex items-center gap-1">
@@ -67,11 +67,11 @@ export default function Achievements() {
       <div className="mt-16">
         <div className="gutter mb-2 flex flex-wrap items-end justify-between gap-2">
           <h3 className="font-sans text-lg font-semibold text-bone sm:text-2xl">
-            Verified credentials <span className="text-mist">· {certifications.length} supplied</span>
+            Credentials <span className="text-mist">· to be added once verified</span>
           </h3>
           <p className="text-xs text-smoke">{issuers.join(' · ')}</p>
         </div>
-        {certifications.length === 0 ? <div className="gutter rounded-2xl border border-dashed border-white/15 p-5 text-sm text-mist">No certification documents have been supplied. Nothing is displayed as a credential until it can be verified.</div> : <div className="group/rail relative">
+        {certifications.length === 0 ? <div className="gutter rounded-2xl border border-dashed border-white/15 p-5 text-sm text-mist">Certificates will be added here once they have been verified. Nothing is shown as a credential until then.</div> : <div className="group/rail relative">
           <div ref={rail} className="rail gutter flex snap-x gap-3 overflow-x-auto py-5">
             {certifications.map((c, i) => (
               <motion.a

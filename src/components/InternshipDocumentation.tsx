@@ -1,78 +1,25 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { education, experience, internshipStages, profile } from '../data/portfolio';
 import { EASE, SectionHeading } from './fx';
 import {
-  DAILY_KEY,
-  IMPORT_EVENT,
   PLACEMENT_PEOPLE,
   PLANNED_HOURS,
-  REFLECTION_KEY,
-  REPORT_KEY,
-  VERIFICATION_OPTIONS,
-  applyImport,
-  downloadBackup,
-  emptyDaily,
-  emptyReflection,
   formatHours,
   hoursSummary,
-  newId,
   normalizeDaily,
   normalizeReflection,
-  parseBackup,
   parseHours,
-  planImport,
-  readLastBackup,
-  readList,
-  readReport,
-  reportFields,
   sortByDate,
-  writeJson,
   type DailyEntry,
-  type InternshipComponent,
   type ReflectionEntry,
 } from './logbookTools';
+   import logbookData from '../data/logbook-data.json';
 
-const inputClass = 'mt-1 w-full rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm text-bone outline-none transition placeholder:text-smoke focus:border-crimson-2';
 const secondaryButton = 'min-h-11 rounded-md border border-white/20 px-4 text-sm font-semibold text-bone transition hover:border-bone disabled:cursor-not-allowed disabled:opacity-40';
-
-function Field({ label, value, onChange, multiline = false, placeholder }: { label: string; value: string; onChange: (value: string) => void; multiline?: boolean; placeholder: string }) {
-  return (
-    <label className="block text-xs font-semibold uppercase tracking-[0.16em] text-smoke">
-      {label}
-      {multiline ? <textarea rows={3} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={inputClass} /> : <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={inputClass} />}
-    </label>
-  );
-}
-
-function DateField({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
-  const isIso = value === '' || /^\d{4}-\d{2}-\d{2}$/.test(value);
-  return (
-    <label className="block text-xs font-semibold uppercase tracking-[0.16em] text-smoke">
-      {label}
-      {isIso ? (
-        <input type="date" value={value} onChange={(e) => onChange(e.target.value)} className={`${inputClass} [color-scheme:dark]`} />
-      ) : (
-        <input value={value} onChange={(e) => onChange(e.target.value)} placeholder="YYYY-MM-DD" className={inputClass} />
-      )}
-      {!isIso && <span className="mt-1 block text-[11px] normal-case tracking-normal text-crimson-2">Use the format YYYY-MM-DD so entries sort correctly.</span>}
-    </label>
-  );
-}
-
-function LocalNote({ failed = false }: { failed?: boolean }) {
-  return (
-    <>
-      {failed && (
-        <p role="alert" className="mt-4 text-xs font-semibold leading-relaxed text-crimson-2">
-          This browser could not save your latest change (storage may be full or blocked). Export a backup now so nothing is lost.
-        </p>
-      )}
-      <p className="mt-4 text-xs leading-relaxed text-smoke">These drafts are stored only in this browser. They are not submitted to the university or supervisors. Export a backup regularly.</p>
-    </>
-  );
-}
+   const PUBLIC_DAILY: DailyEntry[] = (logbookData.dailyLogbook as unknown[]).map(normalizeDaily).filter((e): e is DailyEntry => e !== null);
+   const PUBLIC_REFLECTIONS: ReflectionEntry[] = (logbookData.reflectiveLogbook as unknown[]).map(normalizeReflection).filter((e): e is ReflectionEntry => e !== null);
 
 // ---------- printing (Download PDF) ----------
 
@@ -206,6 +153,7 @@ function DailyPrintSheet({ entries }: { entries: DailyEntry[] }) {
 }
 
 
+
 function ReflectionPrintSheet({ entries }: { entries: ReflectionEntry[] }) {
   const sorted = sortByDate(entries);
 
@@ -246,96 +194,18 @@ function ReflectionPrintSheet({ entries }: { entries: ReflectionEntry[] }) {
 
 // ---------- backup bar ----------
 
-function readFileText(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result ?? ''));
-    reader.onerror = () => reject(reader.error);
-    reader.readAsText(file);
-  });
-}
-
-function BackupBar({ onPdf, pdfDisabled = false }: { onPdf?: () => void; pdfDisabled?: boolean }) {
-  const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
-  const [lastBackup, setLastBackup] = useState<string | null>(() => readLastBackup());
-  const fileRef = useRef<HTMLInputElement>(null);
-
-  const doExport = () => {
-    downloadBackup();
-    setLastBackup(readLastBackup());
-    setMessage({ ok: true, text: 'Backup file downloaded. Keep a copy somewhere safe, such as Google Drive or your email.' });
-  };
-
-  const onFile = async (file: File | undefined) => {
-    if (!file) return;
-    try {
-      const parsed = parseBackup(await readFileText(file));
-      if (!parsed.ok) {
-        setMessage({ ok: false, text: parsed.error });
-        return;
-      }
-      const plan = planImport(parsed.data);
-      const reportCount = plan.reportFieldsToFill.length;
-      if (plan.newDaily.length === 0 && plan.newReflections.length === 0 && reportCount === 0) {
-        setMessage({ ok: true, text: 'Nothing to add. Everything in this backup is already in this browser.' });
-        return;
-      }
-      const summary = `Add ${plan.newDaily.length} daily ${plan.newDaily.length === 1 ? 'entry' : 'entries'}, ${plan.newReflections.length} ${plan.newReflections.length === 1 ? 'reflection' : 'reflections'} and ${reportCount} empty report ${reportCount === 1 ? 'section' : 'sections'} from this backup?\n\nNothing already in this browser will be replaced or deleted.`;
-      if (!window.confirm(summary)) {
-        setMessage({ ok: true, text: 'Import cancelled. Nothing was changed.' });
-        return;
-      }
-      const saved = applyImport(parsed.data, plan);
-      setMessage(saved ? { ok: true, text: 'Backup imported.' } : { ok: false, text: 'The backup was read, but this browser could not save all of it.' });
-    } catch {
-      setMessage({ ok: false, text: 'This file could not be read.' });
-    }
-  };
-
-  return (
-    <div className="gutter mb-5">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={doExport} className={secondaryButton}>Export backup</button>
-          <button type="button" onClick={() => fileRef.current?.click()} className={secondaryButton}>Import backup</button>
-          {onPdf && <button type="button" onClick={onPdf} disabled={pdfDisabled} className={secondaryButton}>Download PDF</button>}
-          <input
-            ref={fileRef}
-            type="file"
-            accept="application/json,.json"
-            className="hidden"
-            aria-label="Choose a backup file to import"
-            onChange={(e) => {
-              void onFile(e.target.files?.[0]);
-              e.target.value = '';
-            }}
-          />
-        </div>
-        <p className="mt-3 text-xs leading-relaxed text-smoke">
-          {lastBackup ? `Last backup from this browser: ${new Date(lastBackup).toLocaleString()}.` : 'No backup has been exported from this browser yet.'} One backup file holds the daily logbook, the reflective logbook and the report draft together.
-          {onPdf ? ' For the PDF, choose "Save as PDF" as the printer in the window that opens, and turn off "Headers and footers".' : ''}
-        </p>
-        {message && (
-          <p role="status" className={`mt-2 text-xs font-semibold ${message.ok ? 'text-mist' : 'text-crimson-2'}`}>
-            {message.text}
-          </p>
-        )}
-      </div>
-    </div>
-  );
-}
 
 // ---------- sections ----------
 
 export function InternshipAims() {
   return (
     <>
-      <SectionHeading kicker="Planning document" title="Internship Aims and Objectives" aside={<p className="max-w-sm text-sm text-mist">Planned purpose and expected learning outcomes for the internship.</p>} />
+      <SectionHeading kicker="Planning document" title="Internship Aims and Objectives" aside={<p className="max-w-sm text-sm text-mist">Purpose and expected learning outcomes for the internship.</p>} />
       <div className="gutter grid gap-4 lg:grid-cols-2">
         <InfoBlock title="Internship purpose">To connect English Applied Linguistics with teaching, multilingual communication, and language use in public administration and education.</InfoBlock>
         <InfoBlock title="General aim">To observe and apply relevant Applied Linguistics concepts in a supervised institutional placement.</InfoBlock>
-        <InfoBlock title="Specific objectives"><ul className="space-y-2"><li>Observe language use, language choice, and multilingual communication.</li><li>Relate language teaching principles to classroom and professional communication.</li><li>Develop a theory-to-practice reflection habit through documented internship work.</li><li>Maintain accurate records of activities, observations, and verification.</li></ul></InfoBlock>
-        <InfoBlock title="Expected learning outcomes"><ul className="space-y-2"><li>Expected: clearer understanding of institutional and professional communication.</li><li>Expected: improved ability to connect sociolinguistics with observed practice.</li><li>Expected: more careful reflection on multilingualism and language teaching.</li><li>Expected: a structured internship report supported by authentic records.</li></ul></InfoBlock>
+        <InfoBlock title="Specific objectives"><ol className="list-decimal space-y-2 pl-5"><li>Observe language use, language choice, and multilingual communication.</li><li>Relate language teaching principles to classroom and professional communication.</li><li>Develop a theory-to-practice reflection habit through documented internship work.</li><li>Maintain accurate records of activities, observations, and verification.</li></ol></InfoBlock>
+        <InfoBlock title="Expected learning outcomes"><ol className="list-decimal space-y-2 pl-5"><li>Clearer understanding of institutional and professional communication.</li><li>Improved ability to connect sociolinguistics with observed practice.</li><li>More careful reflection on multilingualism and language teaching.</li><li>A structured internship report supported by authentic records.</li></ol></InfoBlock>
       </div>
     </>
   );
@@ -344,11 +214,11 @@ export function InternshipAims() {
 export function InternshipJourney() {
   return (
     <>
-      <SectionHeading kicker="Placement overview" title="Internship Journey" aside={<p className="max-w-sm text-sm text-mist">A placement timeline. Planned stages are clearly marked and will be updated as evidence becomes available.</p>} />
+      <SectionHeading kicker="Placement overview" title="Internship Placement" aside={<p className="max-w-sm text-sm text-mist">A timeline of the completed placement stages.</p>} />
       <div className="gutter grid gap-4 lg:grid-cols-4">
         {internshipStages.map((stage, index) => <motion.article key={stage.title} className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08, duration: 0.6, ease: EASE }}><p className="text-[10px] font-bold uppercase tracking-[0.22em] text-crimson-2">0{index + 1} · {stage.status}</p><h3 className="mt-5 font-display text-3xl leading-none text-bone">{stage.title}</h3><p className="mt-3 text-sm leading-relaxed text-mist">{stage.detail}</p></motion.article>)}
       </div>
-      <div className="gutter mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-sm leading-relaxed text-mist"><strong className="text-bone">Placement:</strong> {experience[0].company}. <strong className="text-bone">Supervisor:</strong> {PLACEMENT_PEOPLE.supervisor}. <strong className="text-bone">Co-supervisor:</strong> {PLACEMENT_PEOPLE.coSupervisor}. <strong className="text-bone">Coordinator:</strong> {PLACEMENT_PEOPLE.coordinator}. <strong className="text-bone">Status:</strong> IN PROGRESS. Planned duration: {PLANNED_HOURS.min}-{PLANNED_HOURS.max} hours.</div>
+      <div className="gutter mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-sm leading-relaxed text-mist"><strong className="text-bone">Placement:</strong> {experience[0].company}. <strong className="text-bone">Supervisor:</strong> {PLACEMENT_PEOPLE.supervisor}. <strong className="text-bone">Co-supervisor:</strong> {PLACEMENT_PEOPLE.coSupervisor}. <strong className="text-bone">Coordinator:</strong> {PLACEMENT_PEOPLE.coordinator}. <strong className="text-bone">Status:</strong> COMPLETED. Planned duration: {PLANNED_HOURS.min}-{PLANNED_HOURS.max} hours.</div>
     </>
   );
 }
@@ -368,392 +238,106 @@ function HoursPanel({ entries }: { entries: DailyEntry[] }) {
 }
 
 export function DailyLogbook() {
-  const [entries, setEntries] = useState<DailyEntry[]>(() => readList(DAILY_KEY, normalizeDaily));
-  const [draft, setDraft] = useState<Omit<DailyEntry, 'id'>>({ ...emptyDaily });
-  const [editing, setEditing] = useState<string | null>(null);
-  const [formError, setFormError] = useState('');
-  const [saveFailed, setSaveFailed] = useState(false);
   const [printing, startPrint] = usePrintSheet();
-  const formRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSaveFailed(!writeJson(DAILY_KEY, entries));
-  }, [entries]);
-
-  useEffect(() => {
-    const reload = () => setEntries(readList(DAILY_KEY, normalizeDaily));
-    window.addEventListener(IMPORT_EVENT, reload);
-    return () => window.removeEventListener(IMPORT_EVENT, reload);
-  }, []);
-
-  const update = (key: keyof Omit<DailyEntry, 'id' | 'component'>, value: string) => setDraft((current) => ({ ...current, [key]: value }));
-  const clearForm = () => {
-    setDraft({ ...emptyDaily });
-    setEditing(null);
-    setFormError('');
-  };
-
-  const save = () => {
-    if (!draft.tasks.trim()) {
-      setFormError('Add the tasks you performed before saving.');
-      return;
-    }
-    const entry: DailyEntry = { ...draft, id: editing ?? newId() };
-    setEntries((current) => (editing ? current.map((item) => (item.id === editing ? entry : item)) : [...current, entry]));
-    clearForm();
-  };
-
-  const edit = (entry: DailyEntry) => {
-    const { id, ...rest } = entry;
-    setDraft(rest);
-    setEditing(id);
-    setFormError('');
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const remove = (entry: DailyEntry) => {
-    if (!window.confirm('Delete this daily entry? This cannot be undone.\n\nTip: export a backup first if you are not sure.')) return;
-    setEntries((current) => current.filter((item) => item.id !== entry.id));
-    if (editing === entry.id) clearForm();
-  };
-
-  const hoursNow = draft.hours.trim() ? parseHours(draft.hours) : null;
-  const verificationOptions = VERIFICATION_OPTIONS.includes(draft.verification) ? VERIFICATION_OPTIONS : [...VERIFICATION_OPTIONS, draft.verification];
-  const shown = sortByDate(entries);
+  const shown = sortByDate(PUBLIC_DAILY);
 
   return (
     <>
-      <SectionHeading kicker="Field record" title="Daily Internship Logbook" aside={<p className="max-w-sm text-sm text-mist">Start with a blank template. Add only activities, hours, and evidence that actually happened.</p>} />
-      <BackupBar onPdf={startPrint} pdfDisabled={entries.length === 0} />
-      <div className="gutter grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-        <div ref={formRef} className="scroll-mt-24 rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10">
-          <h3 className="font-display text-3xl text-bone">{editing ? 'Edit entry' : 'Entry template'}</h3>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <DateField label="Date" value={draft.date} onChange={(v) => update('date', v)} />
-            <div>
-              <Field label="Start/end time or hours" value={draft.hours} onChange={(v) => update('hours', v)} placeholder="e.g. 3, 2.5 or 09:00-12:00" />
-              {draft.hours.trim() !== '' && (
-                <p className="mt-1 text-[11px] text-smoke">{hoursNow !== null ? `Counts as ${formatHours(hoursNow)} h.` : 'Not counted yet. Write hours like 3, 2.5 or 09:00-12:30.'}</p>
-              )}
-            </div>
-          </div>
-          <label className="mt-4 block text-xs font-semibold uppercase tracking-[0.16em] text-smoke">
-            Internship component
-            <select
-              value={draft.component}
-              onChange={(e) => {
-                const component: InternshipComponent = e.target.value === 'Non-Teaching/Institutional' ? 'Non-Teaching/Institutional' : 'Teaching';
-                setDraft((current) => ({ ...current, component }));
-              }}
-              className="mt-1 w-full rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm font-normal text-bone"
-            >
-              <option>Teaching</option>
-              <option>Non-Teaching/Institutional</option>
-            </select>
-          </label>
-          <div className="mt-4 grid gap-4">
-            <Field label="Tasks performed" value={draft.tasks} onChange={(v) => update('tasks', v)} multiline placeholder="Add only verified tasks." />
-            <Field label="Skills or concepts applied" value={draft.concepts} onChange={(v) => update('concepts', v)} multiline placeholder="For example: language choice, multilingualism." />
-            <label className="block text-xs font-semibold uppercase tracking-[0.16em] text-smoke">
-              Supervisor verification/status
-              <select value={draft.verification} onChange={(e) => update('verification', e.target.value)} className="mt-1 w-full rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm font-normal text-bone">
-                {verificationOptions.map((option) => <option key={option}>{option}</option>)}
-              </select>
-              <span className="mt-1 block text-[11px] normal-case tracking-normal text-smoke">Choose "Signed by supervisor" only after your supervisor has really signed your printed logbook.</span>
-            </label>
-          </div>
-          {formError && <p role="alert" className="mt-4 text-xs font-semibold text-crimson-2">{formError}</p>}
-          <button type="button" onClick={save} className="mt-5 min-h-11 rounded-md bg-bone px-5 text-sm font-bold text-ink">{editing ? 'Update entry' : 'Save entry'}</button>
-          {editing && <button type="button" onClick={clearForm} className="ml-2 min-h-11 rounded-md border border-white/20 px-5 text-sm font-semibold text-bone">Cancel</button>}
-          <LocalNote failed={saveFailed} />
-        </div>
-        <div className="space-y-3">
-          <HoursPanel entries={entries} />
-          {entries.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-white/15 p-6 text-sm leading-relaxed text-mist">No daily entries yet. This is intentionally blank so you can record the internship accurately.</div>
-          ) : (
-            shown.map((entry) => {
-              const counted = parseHours(entry.hours);
-              return (
-                <article key={entry.id} className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-crimson-2">{entry.date || 'Date not supplied'} · {entry.component}</p>
-                    <div>
-                      <button type="button" onClick={() => edit(entry)} className="mr-2 text-xs font-semibold text-bone underline">Edit</button>
-                      <button type="button" onClick={() => remove(entry)} className="text-xs font-semibold text-crimson-2 underline">Delete</button>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-base leading-relaxed text-bone" dir="auto">{entry.tasks || 'Activity entry'}</p>
-                  <p className="mt-3 text-xs text-smoke">{entry.hours ? `${entry.hours}${counted === null ? ' (not counted)' : ''}` : 'Hours not supplied'} · Skills: {entry.concepts || 'Not added'}</p>
-                  <p className="mt-1 text-xs text-smoke">Verification: {entry.verification}</p>
-                </article>
-              );
-            })
-          )}
-        </div>
+      <SectionHeading kicker="Field record" title="Daily Internship Logbook" aside={<p className="max-w-sm text-sm text-mist">A read-only record of the internship activities, hours and supervisor verification status.</p>} />
+      <div className="gutter mb-5">
+        <button type="button" onClick={startPrint} className={secondaryButton}>Download PDF</button>
+        <p className="mt-3 text-xs leading-relaxed text-smoke">For the PDF, choose "Save as PDF" as the printer in the window that opens, and turn off "Headers and footers".</p>
       </div>
-      {printing && <DailyPrintSheet entries={entries} />}
+      <div className="gutter space-y-3">
+        <HoursPanel entries={PUBLIC_DAILY} />
+        {shown.map((entry) => {
+          const counted = parseHours(entry.hours);
+          return (
+            <article key={entry.id} className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-crimson-2">{entry.date || 'Date not supplied'} · {entry.component}</p>
+              <p className="mt-3 text-base leading-relaxed text-bone" dir="auto">{entry.tasks || 'Activity entry'}</p>
+              <p className="mt-3 text-xs text-smoke">{entry.hours ? `${entry.hours}${counted === null ? ' (not counted)' : ''}` : 'Hours not supplied'} · Skills: {entry.concepts || 'Not added'}</p>
+              <p className="mt-1 text-xs text-smoke">Verification: {entry.verification}</p>
+            </article>
+          );
+        })}
+      </div>
+      {printing && <DailyPrintSheet entries={PUBLIC_DAILY} />}
     </>
   );
 }
 
-
 export function ReflectiveLogbook() {
-  const [entries, setEntries] = useState<ReflectionEntry[]>(() =>
-    readList(REFLECTION_KEY, normalizeReflection)
-  );
-  const [draft, setDraft] = useState<Omit<ReflectionEntry, 'id'>>({
-    ...emptyReflection,
-  });
-  const [editing, setEditing] = useState<string | null>(null);
-  const [formError, setFormError] = useState('');
-  const [saveFailed, setSaveFailed] = useState(false);
   const [printing, startPrint] = usePrintSheet();
-  const formRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSaveFailed(!writeJson(REFLECTION_KEY, entries));
-  }, [entries]);
-
-  useEffect(() => {
-    const reload = () =>
-      setEntries(readList(REFLECTION_KEY, normalizeReflection));
-
-    window.addEventListener(IMPORT_EVENT, reload);
-    return () => window.removeEventListener(IMPORT_EVENT, reload);
-  }, []);
-
-  const update = (
-    key: keyof Omit<ReflectionEntry, 'id'>,
-    value: string
-  ) => setDraft((current) => ({ ...current, [key]: value }));
-
-  const clearForm = () => {
-    setDraft({ ...emptyReflection });
-    setEditing(null);
-    setFormError('');
-  };
-
-  const save = () => {
-    if (!draft.reflection.trim()) {
-      setFormError('Write your reflection before saving.');
-      return;
-    }
-
-    const entry: ReflectionEntry = {
-      ...draft,
-      id: editing ?? newId(),
-    };
-
-    setEntries((current) =>
-      editing
-        ? current.map((item) => (item.id === editing ? entry : item))
-        : [...current, entry]
-    );
-
-    clearForm();
-  };
-
-  const edit = (entry: ReflectionEntry) => {
-    const { id, ...rest } = entry;
-    setDraft(rest);
-    setEditing(id);
-    setFormError('');
-    formRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
-  const remove = (entry: ReflectionEntry) => {
-    if (
-      !window.confirm(
-        'Delete this reflection? This cannot be undone.\n\nTip: export a backup first if you are not sure.'
-      )
-    ) {
-      return;
-    }
-
-    setEntries((current) =>
-      current.filter((item) => item.id !== entry.id)
-    );
-
-    if (editing === entry.id) clearForm();
-  };
-
-  const shown = sortByDate(entries);
+  const shown = sortByDate(PUBLIC_REFLECTIONS);
 
   return (
     <>
       <SectionHeading
         kicker="Theory-to-practice"
         title="Reflective Logbook"
-        aside={
-          <p className="max-w-sm text-sm text-mist">
-            Record your actual internship experiences, observations,
-            learning and reflections in your own words.
-          </p>
-        }
+        aside={<p className="max-w-sm text-sm text-mist">A read-only record of the reflections written during the internship, connecting daily experience with Applied Linguistics concepts.</p>}
       />
-
-      <BackupBar onPdf={startPrint} pdfDisabled={entries.length === 0} />
-
-      <div className="gutter grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <div
-          ref={formRef}
-          className="scroll-mt-24 rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10"
-        >
-          <h3 className="font-display text-3xl text-bone">
-            {editing ? 'Edit reflection' : 'New reflection'}
-          </h3>
-
-          <div className="mt-5 grid gap-4">
-            <DateField
-              label="Date"
-              value={draft.date}
-              onChange={(v) => update('date', v)}
-            />
-
-            <Field
-              label="Day Number"
-              value={draft.dayNumber}
-              onChange={(v) => update('dayNumber', v)}
-              placeholder="e.g. Day 1"
-            />
-
-            <Field
-              label="Reflective Log"
-              value={draft.reflection}
-              onChange={(v) => update('reflection', v)}
-              multiline
-              placeholder="Write your complete reflection here. Describe what happened, what you observed, what you learned, and how it connects to your academic understanding."
-            />
-          </div>
-
-          {formError && (
-            <p
-              role="alert"
-              className="mt-4 text-xs font-semibold text-crimson-2"
-            >
-              {formError}
-            </p>
-          )}
-
-          <button
-            type="button"
-            onClick={save}
-            className="mt-5 min-h-11 rounded-md bg-bone px-5 text-sm font-bold text-ink"
-          >
-            {editing ? 'Update reflection' : 'Save reflection'}
-          </button>
-
-          {editing && (
-            <button
-              type="button"
-              onClick={clearForm}
-              className="ml-2 min-h-11 rounded-md border border-white/20 px-5 text-sm font-semibold text-bone"
-            >
-              Cancel
-            </button>
-          )}
-
-          <LocalNote failed={saveFailed} />
-        </div>
-
-        <div className="space-y-3">
-          {entries.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-white/15 p-6 text-sm leading-relaxed text-mist">
-              No reflections yet. Add a reflection after an actual
-              internship experience.
-            </div>
-          ) : (
-            shown.map((entry) => (
-              <article
-                key={entry.id}
-                className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10"
-              >
-                <div className="flex justify-between gap-3">
-                  <div>
-                    {entry.date && (
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-crimson-2">
-                        {entry.date}
-                      </p>
-                    )}
-
-                    <h3 className="mt-1 font-display text-2xl text-bone">
-                      {entry.dayNumber || 'Reflection'}
-                    </h3>
-                  </div>
-
-                  <div className="shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => edit(entry)}
-                      className="mr-2 text-xs font-semibold text-bone underline"
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => remove(entry)}
-                      className="text-xs font-semibold text-crimson-2 underline"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-
-                <p
-                  className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-mist"
-                  dir="auto"
-                >
-                  {entry.reflection}
-                </p>
-              </article>
-            ))
-          )}
-        </div>
+      <div className="gutter mb-5">
+        <button type="button" onClick={startPrint} className={secondaryButton}>Download PDF</button>
+        <p className="mt-3 text-xs leading-relaxed text-smoke">For the PDF, choose "Save as PDF" as the printer in the window that opens, and turn off "Headers and footers".</p>
       </div>
-
-      {printing && <ReflectionPrintSheet entries={entries} />}
+      <div className="gutter space-y-3">
+        {shown.map((entry) => (
+          <article key={entry.id} className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10">
+            {entry.date && <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-crimson-2">{entry.date}</p>}
+            <h3 className="mt-1 font-display text-2xl text-bone">{entry.dayNumber || 'Reflection'}</h3>
+            <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-mist" dir="auto">{entry.reflection}</p>
+          </article>
+        ))}
+      </div>
+      {printing && <ReflectionPrintSheet entries={PUBLIC_REFLECTIONS} />}
     </>
   );
 }
 
-
-export function InternshipReport() {
-  const [values, setValues] = useState<Record<string, string>>(() => readReport());
-  const [saveFailed, setSaveFailed] = useState(false);
-
-  useEffect(() => {
-    setSaveFailed(!writeJson(REPORT_KEY, values));
-  }, [values]);
-
-  useEffect(() => {
-    const reload = () => setValues(readReport());
-    window.addEventListener(IMPORT_EVENT, reload);
-    return () => window.removeEventListener(IMPORT_EVENT, reload);
-  }, []);
-
-  return (
-    <>
-      <SectionHeading kicker="Document draft" title="Internship Report" aside={<p className="max-w-sm text-sm text-mist">A structured editable draft. This is not a completed report and contains no invented findings.</p>} />
-      <BackupBar />
-      <div className="gutter grid gap-4 lg:grid-cols-2">
-        {reportFields.map((field) => <Field key={field} label={field} value={values[field] ?? ''} onChange={(value) => setValues((current) => ({ ...current, [field]: value }))} multiline placeholder="Draft this section after the relevant information is available." />)}
-      </div>
-      <div className="gutter"><LocalNote failed={saveFailed} /></div>
-    </>
-  );
-}
-
+export function InternshipReport() { return <DocumentPlaceholder title="Internship Report" description="The final internship report will appear here once it is completed and ready to be shared." />; }
 function DocumentPlaceholder({ title, description }: { title: string; description: string }) {
   return <><SectionHeading kicker="Document record" title={title} aside={<p className="max-w-sm text-sm text-mist">Only authentic documents supplied by the university or supervisor will be shown here.</p>} /><div className="gutter"><div className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/20 bg-white/[0.03] px-6 text-center"><div className="font-display text-6xl text-bone/20">MHB</div><h3 className="mt-4 font-display text-3xl text-bone">Document not provided</h3><p className="mt-3 max-w-xl text-sm leading-relaxed text-mist">{description}</p><p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-crimson-2">Placeholder · not an official document</p></div></div></>;
 }
 
 export function SupervisorFeedback() { return <DocumentPlaceholder title="Supervisor Feedback Form" description="The actual supervisor feedback form, comments, marks, signatures, and verification will appear here only after the real document is supplied." />; }
-export function AcceptanceLetter() { return <DocumentPlaceholder title="Internship Acceptance Letter" description={`The official acceptance letter for ${profile.fullName}'s placement is not present in this workspace. Add the authentic letter before displaying it here.`} />; }
+export function AcceptanceLetter() {
+  const pdf = `${import.meta.env.BASE_URL}documents/acceptance-letter.pdf`;
+  return (
+    <>
+      <SectionHeading
+        kicker="Document record"
+        title="Internship Acceptance Letter"
+        aside={<p className="max-w-sm text-sm text-mist">The official acceptance letter for the placement with the Revenue Administration of Hyderabad Rural.</p>}
+      />
+      <div className="gutter">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <p className="max-w-2xl text-sm leading-relaxed text-mist sm:text-base">
+            Open the letter in a new tab, or download a copy.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-h-11 rounded-md bg-bone px-5 py-3 text-sm font-bold text-ink"
+            >
+              Open PDF
+            </a>
+            <a
+              href={pdf}
+              download="acceptance-letter.pdf"
+              className="min-h-11 rounded-md border border-white/20 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone"
+            >
+              Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 function InfoBlock({ title, children }: { title: string; children: ReactNode }) {
   return <article className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10"><h3 className="font-display text-3xl text-bone">{title}</h3><div className="mt-3 text-sm leading-relaxed text-mist">{children}</div></article>;

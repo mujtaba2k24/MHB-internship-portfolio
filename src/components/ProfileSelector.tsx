@@ -1,15 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { profile, viewerProfiles, type ProfileId } from '../data/portfolio';
 import { EASE } from './fx';
 
 export function ProfileAvatar({ id, size = 'lg' }: { id: ProfileId; size?: 'sm' | 'lg' }) {
+  const [photoFailed, setPhotoFailed] = useState(false);
   const p = viewerProfiles.find((v) => v.id === id)!;
   const box = size === 'lg' ? 'h-24 w-24 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-xl' : 'h-8 w-8 rounded-md';
   if (id === 'mujtaba') {
     return (
       <span className={`relative flex items-center justify-center overflow-hidden ${box}`} style={{ background: 'radial-gradient(circle at 50% 30%, #7a0f24, #1a0509)' }}>
-        <span className="font-display text-4xl text-bone/80">MHB</span>
+        {photoFailed ? (
+          <span className={`font-display text-bone/80 ${size === 'lg' ? 'text-4xl' : 'text-[10px]'}`}>MHB</span>
+        ) : (
+          <img
+            src={`${import.meta.env.BASE_URL}assets/portrait-420.webp`}
+            alt="Mujtaba Hussain Bhatti"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+            onError={() => setPhotoFailed(true)}
+          />
+        )}
       </span>
     );
   }

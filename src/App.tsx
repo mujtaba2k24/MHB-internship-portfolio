@@ -116,7 +116,7 @@ function Series() {
       <CustomCursor />
 
       <AnimatePresence>
-        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} />}
+        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => pickProfile('mujtaba')} />}
         {stage === 'profiles' && <ProfileSelector key="profiles" onPick={pickProfile} />}
       </AnimatePresence>
 

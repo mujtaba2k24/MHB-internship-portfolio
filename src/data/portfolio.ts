@@ -13,10 +13,10 @@ export const profile = {
   firstName: 'MUJTABA',
   hasPortrait: true,
   portrait: {
-    src: '/assets/portrait-720.webp',
-    srcSet: '/assets/portrait-420.webp 420w, /assets/portrait-720.webp 720w, /assets/portrait-1100.webp 1100w',
-    alt: 'Mujtaba Hussain Bhatti',
-  } as { src: string; alt: string; srcSet?: string },
+  src: `${import.meta.env.BASE_URL}assets/portrait-720.webp`,
+  srcSet: `${import.meta.env.BASE_URL}assets/portrait-420.webp 420w, ${import.meta.env.BASE_URL}assets/portrait-720.webp 720w, ${import.meta.env.BASE_URL}assets/portrait-1100.webp 1100w`,
+  alt: 'Mujtaba Hussain Bhatti',
+} as { src: string; alt: string; srcSet?: string },
   seriesTag: 'APPLIED LINGUISTICS PORTFOLIO',
   originalLabel: 'APPLIED LINGUISTICS INTERNSHIP PORTFOLIO',
   role: 'English Applied Linguistics Undergraduate',
@@ -24,6 +24,8 @@ export const profile = {
   intro: 'I am Mujtaba Hussain Bhatti, an undergraduate student pursuing a bachelor\'s degree in English Applied Linguistics at the University of Sindh, Jamshoro. My keen interests include sociolinguistics, multilingualism, and language teaching, particularly understanding the relationship between language, society, and education. I have always been fascinated by how language connects with power, identity, gender norms, psychology, and other aspects of human life.',
   location: 'Hyderabad, Sindh, Pakistan',
   email: '2k24-al-84@usindh.edu.pk',
+  phone: '0312 7030065',
+  phoneLink: '+923127030065',
   links: {
   linkedin: '',
   github: 'https://github.com/mujtaba2k24',
@@ -61,10 +63,10 @@ export const experience = [
     company: 'Revenue Administration, Hyderabad Rural',
     role: 'Applied Linguistics in Public Administration and Education',
     place: 'Hyderabad Rural, Sindh, Pakistan',
-    period: 'IN PROGRESS · Planned duration: 60–80 hours',
+    period: 'COMPLETED · 90 hours logged (planned 60–80 hours)',
     points: [
       'Subtitle: An Applied Linguistics Internship with the Revenue Administration of Hyderabad Rural.',
-      'Placement: Revenue Administration, Hyderabad Rural. Status: IN PROGRESS.',
+      'Placement: Revenue Administration, Hyderabad Rural. Status: COMPLETED.',
       'Supervised by Gohar Masroor, Assistant Commissioner, and Junaid Qazi, Mukhtiarkar (UT). University coordinator: Madam Bakhtawar Jaleel.',
       'Components: Teaching and Non-Teaching/Institutional, with a focus on applied linguistics, sociolinguistics, multilingualism, language choice, professional communication, and language teaching.',
     ],
@@ -95,11 +97,11 @@ export const projects: Project[] = [
     title: 'Applied Linguistics Internship',
     year: '2026',
     genre: 'Applied Linguistics • Public Administration • Education',
-    logline: 'An in-progress placement connecting applied linguistics with public administration and education.',
+    logline: 'A completed placement connecting applied linguistics with public administration and education.',
     stack: ['Sociolinguistics', 'Multilingualism', 'Professional Communication'],
-    build: ['Planned teaching and institutional components with the Revenue Administration of Hyderabad Rural.', 'Activities and outcomes will be documented as they are completed and verified.'],
+    build: ['Teaching and institutional components completed with the Revenue Administration of Hyderabad Rural.', 'Activities are documented in the Daily and Reflective Logbooks.'],
     features: ['Teaching component', 'Non-teaching / institutional component', 'Language choice and multilingual communication', 'Language teaching and professional communication'],
-    metrics: [{ value: 'IN PROGRESS', label: 'current status' }, { value: '60–80h', label: 'planned duration' }, { value: '2', label: 'planned components' }],
+    metrics: [{ value: 'COMPLETED', label: 'current status' }, { value: '90h', label: 'hours logged' }, { value: '2', label: 'components' }],
     palette: { from: '#2a0610', via: '#7a0f24', to: '#0b0710', accent: '#ff3d5a' },
     motif: 'shield',
   },
@@ -208,7 +210,7 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'practice',
     title: 'Academic Practice',
-    subtitle: 'Applied work in progress',
+    subtitle: 'Applied work COMPLETED',
     skills: [
       { name: 'Language Teaching', mono: 'LT' },
       { name: 'Lesson Planning', mono: 'LP' },
@@ -233,20 +235,20 @@ export const skillCategories: SkillCategory[] = [
  * where the skill appears in the projects, certifications or achievements on the resume.
  */
 export const skillEvidence: Record<string, string[]> = {
-  'Applied Linguistics': ['University of Sindh · IELL', 'Internship focus (planned)'],
-  Sociolinguistics: ['Academic interest', 'Internship focus (planned)'],
-  Multilingualism: ['Academic interest', 'Internship focus (planned)'],
-  'Language Teaching': ['Academic interest', 'Internship teaching component (planned)'],
+  'Applied Linguistics': ['University of Sindh · IELL', 'Internship focus'],
+  Sociolinguistics: ['Academic interest', 'Internship focus'],
+  Multilingualism: ['Academic interest', 'Internship focus'],
+  'Language Teaching': ['Academic interest', 'Internship teaching component'],
   'Language and Society': ['Academic interest'],
   'Language and Power': ['Academic interest'],
   Identity: ['Academic interest'],
   Gender: ['Academic interest'],
-  'Professional Communication': ['Internship focus (planned)'],
-  'Institutional Communication': ['Internship focus (planned)'],
-  'Language Choice': ['Internship focus (planned)'],
-  'Classroom Communication': ['Internship focus (planned)'],
-  'Lesson Planning': ['Internship teaching component (planned)'],
-  'Public Administration': ['Revenue Administration placement (in progress)'],
+  'Professional Communication': ['Internship focus'],
+  'Institutional Communication': ['Internship focus'],
+  'Language Choice': ['Internship focus'],
+  'Classroom Communication': ['Internship focus'],
+  'Lesson Planning': ['Internship teaching component'],
+  'Public Administration': ['Revenue Administration placement (COMPLETED)'],
   Psychology: ['Academic interest'],
   'Language and Gender': ['Academic interest'],
   'Language and Identity': ['Academic interest'],
@@ -259,10 +261,10 @@ const violet: Palette = { from: '#120822', via: '#3d1a6e', to: '#07060c', accent
 const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: '#46e3a8' };
 
 export const internshipStages = [
-  { title: 'Placement context', detail: 'Revenue Administration, Hyderabad Rural · Applied Linguistics in Public Administration and Education', status: 'In progress', palette: violet },
-  { title: 'Teaching component', detail: 'Planned language teaching, lesson planning, teaching methods, and classroom communication.', status: 'Planned', palette: amber },
-  { title: 'Non-Teaching / Institutional component', detail: 'Planned attention to language use, language choice, multilingualism, and professional communication.', status: 'Planned', palette: ocean },
-  { title: 'Theory-to-practice reflection', detail: 'The logbooks and report template will connect field observations with Applied Linguistics concepts.', status: 'To be documented', palette: jade },
+  { title: 'Placement context', detail: 'Revenue Administration, Hyderabad Rural · Applied Linguistics in Public Administration and Education', status: 'COMPLETED', palette: violet },
+  { title: 'Teaching component', detail: 'Language teaching, lesson planning, teaching methods, and classroom communication.', status: 'Completed', palette: amber },
+  { title: 'Non-Teaching / Institutional component', detail: 'Attention to language use, language choice, multilingualism, and professional communication.', status: 'Completed', palette: ocean },
+  { title: 'Theory-to-practice reflection', detail: 'The logbooks connect field observations with Applied Linguistics concepts.', status: 'Documented in logbooks', palette: jade },
 ];
 
 export type TopPick = { label: string; title: string; detail: string; palette: Palette };
@@ -272,8 +274,8 @@ export const topPicks: TopPick[] = [
   { label: 'Research interest', title: 'Sociolinguistics', detail: 'Language, society, and education', palette: crimson },
   { label: 'Current semester', title: '6th Semester', detail: 'Institute of English Language & Literature', palette: ocean },
   { label: 'Reported record', title: 'CGPA 3.36', detail: 'Through second-year marksheet · not final CGPA', palette: amber },
-  { label: 'Internship status', title: 'IN PROGRESS', detail: 'Revenue Administration, Hyderabad Rural', palette: jade },
-  { label: 'Planned duration', title: '60–80 Hours', detail: 'Teaching and institutional components', palette: amber },
+  { label: 'Internship status', title: 'COMPLETED', detail: 'Revenue Administration, Hyderabad Rural', palette: jade },
+  { label: 'Hours logged', title: '90 Hours', detail: 'Teaching and institutional components', palette: amber },
   { label: 'Student leadership', title: 'Head Organizer', detail: 'IELL Plantation Drive · 2026', palette: crimson },
   { label: 'Talent Hunt', title: 'Second Position', detail: 'Picture Interpretation', palette: ocean },
   { label: 'Student service', title: 'Alumni Dinner', detail: 'Registration, finances, and coordination', palette: jade },
@@ -299,7 +301,7 @@ export const introSlides: IntroSlide[] = [
   {
     kicker: 'Training',
     title: 'The Internship Arc',
-    lines: ['Applied Linguistics in Public Administration and Education', 'Revenue Administration, Hyderabad Rural · IN PROGRESS', 'Teaching · Institutional communication · Language choice'],
+    lines: ['Applied Linguistics in Public Administration and Education', 'Revenue Administration, Hyderabad Rural · COMPLETED', 'Teaching · Institutional communication · Language choice'],
   },
   {
     kicker: 'Projects',
@@ -313,7 +315,7 @@ export const introSlides: IntroSlide[] = [
   },
   {
     kicker: 'Credentials',
-    title: 'CV not yet provided',
+    title: 'CV available as PDF',
     lines: ['Certification details will be added when verified.', 'No unsupported credentials are displayed.'],
   },
   {
@@ -366,16 +368,16 @@ export const viewerProfiles: {
 export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
   about: { nav: 'About the Intern', card: 'About the Intern', meta: 'Profile • education • context', palette: violet },
   aims: { nav: 'Aims & Objectives', card: 'Internship Aims', meta: 'Purpose • objectives • expected outcomes', palette: amber },
-  journey: { nav: 'Internship Journey', card: 'Internship Journey', meta: `${internshipStages.length} Placement stages`, palette: amber },
-  logbook: { nav: 'Daily Logbook', card: 'Daily Logbook', meta: 'Editable local activity record', palette: ocean },
+  journey: { nav: 'Internship Placement', card: 'Internship Placement', meta: `${internshipStages.length} Placement stages`, palette: amber },
+  logbook: { nav: 'Daily Logbook', card: 'Daily Logbook', meta: 'Read-only activity record', palette: ocean },
   reflection: { nav: 'Reflective Logbook', card: 'Reflective Logbook', meta: 'Experience • analysis • action', palette: jade },
   evidence: { nav: 'Evidence Gallery', card: 'Evidence Gallery', meta: 'Internship photographs and supporting evidence', palette: violet },
-  report: { nav: 'Internship Report', card: 'Internship Report', meta: 'Editable draft template', palette: crimson },
+  report: { nav: 'Internship Report', card: 'Internship Report', meta: 'Final report to be added', palette: crimson },
   feedback: { nav: 'Supervisor Feedback', card: 'Supervisor Feedback', meta: 'Placeholder until supplied', palette: violet },
-  acceptance: { nav: 'Acceptance Letter', card: 'Acceptance Letter', meta: 'Placeholder until supplied', palette: amber },
+  acceptance: { nav: 'Acceptance Letter', card: 'Acceptance Letter', meta: 'Official placement letter • PDF', palette: amber },
   originals: { nav: 'Academic & Internship Work', card: 'Academic Work', meta: `${projects.length} documented activities`, palette: crimson },
   picks: { nav: 'Key Learning Highlights', card: 'Learning Highlights', meta: 'Themes and records', palette: jade },
   skills: { nav: 'Applied Linguistics Competencies', card: 'Competencies', meta: `${skillCategories.length} areas of focus`, palette: ocean },
   moments: { nav: 'Academic Activities', card: 'Academic Activities', meta: `${achievements.length} documented activities`, palette: crimson },
-  story: { nav: 'CV Status', card: 'CV Status', meta: 'CV not yet provided', palette: violet },
+  story: { nav: 'CV Status', card: 'CV Status', meta: 'CV available as PDF', palette: violet },
 };

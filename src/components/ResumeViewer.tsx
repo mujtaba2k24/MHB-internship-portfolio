@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { achievements, certifications, education, experience, profile, projects, skillCategories } from '../data/portfolio';
-import { EASE, Magnetic, SectionHeading } from './fx';
+import { EASE, SectionHeading } from './fx';
 
 /** Profile summary with a designed preview and honest CV availability state. */
-export default function ResumeSection({ onView }: { onView: () => void }) {
+export default function ResumeSection(_props: { onView: () => void }) {
   return (
     <>
       <SectionHeading kicker="Profile document" title="CV Status" />
@@ -22,26 +22,19 @@ export default function ResumeSection({ onView }: { onView: () => void }) {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="font-serif text-3xl italic leading-tight text-bone">The verified profile, in one place.</p>
           <p className="mt-3 text-sm leading-relaxed text-mist">
-            Education, internship context, activities, and {certifications.length} supplied credentials are summarized here. The CV itself has not yet been provided.
+            Education, internship context, and documented activities are summarized here. You can open or download the CV as a PDF.
           </p>
           <div className="mt-6 flex flex-col gap-3">
-            <Magnetic className="w-full">
-              <button
-                type="button"
-                data-cursor="view"
-                onClick={onView}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-bone px-6 text-[15px] font-bold text-ink transition hover:bg-white"
-              >
-                View profile summary
-              </button>
-            </Magnetic>
-            <div className="glass flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-6 text-center text-[15px] font-semibold text-mist">CV not yet provided</div>
+            <div className="flex gap-3">
+              <a href={`${import.meta.env.BASE_URL}documents/cv.pdf`} target="_blank" rel="noopener noreferrer" className="glass flex min-h-12 flex-1 items-center justify-center rounded-md px-4 text-center text-[15px] font-semibold text-bone">Open CV</a>
+              <a href={`${import.meta.env.BASE_URL}documents/cv.pdf`} download="Mujtaba-Hussain-Bhatti-CV.pdf" className="glass flex min-h-12 flex-1 items-center justify-center rounded-md px-4 text-center text-[15px] font-semibold text-bone">Download CV</a>
+            </div>
           </div>
           <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-xl bg-white/10 text-center">
             {[
               { v: education[0].score.replace('Reported CGPA ', ''), k: 'Reported CGPA' },
               { v: String(projects.length), k: 'Activities' },
-              { v: String(certifications.length), k: 'Credentials' },
+              { v: String(achievements.length), k: 'Achievements' },
             ].map((s) => (
               <div key={s.k} className="bg-ink-2 px-2 py-4">
                 <dd className="font-display text-3xl leading-none text-bone">{s.v}</dd>
@@ -84,12 +77,15 @@ export function ResumeSheet() {
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-crimson-2/70 to-transparent" />
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-6">
         <div>
-          <p className="text-[10px] font-bold tracking-[0.34em] text-smoke">STARRING</p>
+          <p className="text-[10px] font-bold tracking-[0.34em] text-smoke">PORTFOLIO OF</p>
           <h3 className="mt-1 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] leading-[0.9] tracking-wide text-bone">{profile.fullName}</h3>
         </div>
         <div className="text-xs leading-relaxed text-mist sm:text-right">
           <a href={`mailto:${profile.email}`} className="block hover:text-bone">
             {profile.email}
+          </a>
+          <a href={`tel:${profile.phoneLink}`} className="block hover:text-bone">
+            {profile.phone}
           </a>
           {profile.links.linkedin && <><a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">LinkedIn ↗</a>{' · '}</>}
           <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
@@ -172,7 +168,7 @@ export function ResumeSheet() {
 
           <H>Credentials</H>
           <p className="text-xs leading-relaxed text-mist">
-            {certifications.length === 0 ? 'No verified credentials supplied yet.' : Array.from(new Set(certifications.map((c) => c.issuer)))
+            {certifications.length === 0 ? 'Credentials will be added once they are verified.' : Array.from(new Set(certifications.map((c) => c.issuer)))
               .map((iss) => `${iss}: ${certifications.filter((c) => c.issuer === iss).map((c) => c.name).join(', ')}`)
               .join(' · ')}
           </p>
