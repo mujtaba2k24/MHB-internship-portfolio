@@ -131,6 +131,19 @@ export const projects: Project[] = [
     palette: { from: '#04121f', via: '#0f4c6e', to: '#05080d', accent: '#4cc9ff' },
     motif: 'tenants',
   },
+  {
+    id: 'englican-sports-gala',
+    title: 'Englican Sports Gala',
+    year: '2026',
+    genre: 'Student Leadership • Event Management',
+    logline: 'A student-led sports event supported through volunteer assignment and event coordination.',
+    stack: ['Volunteer Management', 'Organization', 'Coordination'],
+    build: ['Served as Head Volunteer by assigning tasks to volunteers and helping organizers manage the Englican Sports Gala 2026.'],
+    features: ['Head Volunteer role', 'Volunteer task assignment', 'Sports gala event management'],
+    metrics: [{ value: '2026', label: 'documented year' }, { value: 'HEAD', label: 'volunteer role' }],
+    palette: { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: '#46e3a8' },
+    motif: 'flow',
+  },
 ];
 
 export type Achievement = {
@@ -168,7 +181,7 @@ export const achievements: Achievement[] = [
     id: 'englican-sports-gala-volunteer',
     title: 'Head Volunteer',
     org: 'Englican Sports Gala 2026',
-    detail: 'Assigned task to volunteers, Helped organizer to manage the eevnt at the Englican Sports Gala 2026.',
+    detail: 'Assigned task to volunteers, Helped organizer to manage the event at the Englican Sports Gala 2026.',
     laurel: 'Student Leadership',
   },
 ];
@@ -312,8 +325,8 @@ export const introSlides: IntroSlide[] = [
   },
   {
     kicker: 'Projects',
-    title: 'Three Activities',
-    lines: ['IELL Plantation Drive — Head Organizer · 2026', 'IELL Alumni Dinner — registration, finances, coordination', 'Talent Hunt — second position in Picture Interpretation'],
+    title: 'Four Activities',
+    lines: ['IELL Plantation Drive — Head Organizer · 2026', 'IELL Alumni Dinner — registration, finances, coordination', 'Englican Sports Gala — Head Volunteer · 2026', 'Talent Hunt — second position in Picture Interpretation'],
   },
   {
     kicker: 'Achievements',
@@ -379,7 +392,7 @@ export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: s
   logbook: { nav: 'Daily Logbook', card: 'Daily Logbook', meta: 'Read-only activity record', palette: ocean },
   reflection: { nav: 'Reflective Logbook', card: 'Reflective Logbook', meta: 'Experience • analysis • action', palette: jade },
   evidence: { nav: 'Evidence Gallery', card: 'Evidence Gallery', meta: 'Internship photographs and supporting evidence', palette: violet },
-  report: { nav: 'Internship Report', card: 'Internship Report', meta: 'Final report to be added', palette: crimson },
+  report: { nav: 'Internship Report', card: 'Internship Report', meta: 'Final report • PDF', palette: crimson },
   feedback: { nav: 'Supervisor Feedback', card: 'Supervisor Feedback', meta: 'Placeholder until supplied', palette: violet },
   acceptance: { nav: 'Acceptance Letter', card: 'Acceptance Letter', meta: 'Official placement letter • PDF', palette: amber },
   originals: { nav: 'Academic & Internship Work', card: 'Academic Work', meta: `${projects.length} documented activities`, palette: crimson },

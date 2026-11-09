@@ -297,11 +297,31 @@ export function ReflectiveLogbook() {
   );
 }
 
-export function InternshipReport() { return <DocumentPlaceholder title="Internship Report" description="The final internship report will appear here once it is completed and ready to be shared." />; }
+export function InternshipReport() {
+  const pdf = `${import.meta.env.BASE_URL}documents/internship-report.pdf`;
+  return (
+    <>
+      <SectionHeading
+        kicker="Document record"
+        title="Internship Report"
+        aside={<p className="max-w-sm text-sm text-mist">The final report on the Applied Linguistics internship with the Revenue Administration of Hyderabad Rural.</p>}
+      />
+      <div className="gutter">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <p className="max-w-2xl text-sm leading-relaxed text-mist sm:text-base">Open the report in a new tab, or download a copy.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={pdf} target="_blank" rel="noopener noreferrer" className="min-h-11 rounded-md bg-bone px-5 py-3 text-sm font-bold text-ink">Open PDF</a>
+            <a href={pdf} download="Internship-Report.pdf" className="min-h-11 rounded-md border border-white/20 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone">Download PDF</a>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function DocumentPlaceholder({ title, description }: { title: string; description: string }) {
   return <><SectionHeading kicker="Document record" title={title} aside={<p className="max-w-sm text-sm text-mist">Only authentic documents supplied by the university or supervisor will be shown here.</p>} /><div className="gutter"><div className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/20 bg-white/[0.03] px-6 text-center"><div className="font-display text-6xl text-bone/20">MHB</div><h3 className="mt-4 font-display text-3xl text-bone">Document not provided</h3><p className="mt-3 max-w-xl text-sm leading-relaxed text-mist">{description}</p><p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-crimson-2">Placeholder · not an official document</p></div></div></>;
 }
-
 export function SupervisorFeedback() { return <DocumentPlaceholder title="Supervisor Feedback Form" description="The actual supervisor feedback form, comments, marks, signatures, and verification will appear here only after the real document is supplied." />; }
 export function AcceptanceLetter() {
   const pdf = `${import.meta.env.BASE_URL}documents/acceptance-letter.pdf`;
