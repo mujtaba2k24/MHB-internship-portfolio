@@ -164,6 +164,13 @@ export const achievements: Achievement[] = [
     detail: 'Helped manage registration, finances, and coordination at the February 2026 Alumni Dinner.',
     laurel: 'Student Service',
   },
+   {
+    id: 'englican-sports-gala-volunteer',
+    title: 'Head Volunteer',
+    org: 'Englican Sports Gala 2026',
+    detail: 'Assigned task to volunteers, Helped organizer to manage the eevnt at the Englican Sports Gala 2026.',
+    laurel: 'Student Leadership',
+  },
 ];
 
 export type Certification = { issuer: string; name: string; link: string };

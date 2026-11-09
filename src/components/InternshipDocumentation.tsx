@@ -15,11 +15,12 @@ import {
   type DailyEntry,
   type ReflectionEntry,
 } from './logbookTools';
-   import logbookData from '../data/logbook-data.json';
+import logbookData from '../data/logbook-data.json';
+import glossaryData from '../data/glossary.json';
 
 const secondaryButton = 'min-h-11 rounded-md border border-white/20 px-4 text-sm font-semibold text-bone transition hover:border-bone disabled:cursor-not-allowed disabled:opacity-40';
-   const PUBLIC_DAILY: DailyEntry[] = (logbookData.dailyLogbook as unknown[]).map(normalizeDaily).filter((e): e is DailyEntry => e !== null);
-   const PUBLIC_REFLECTIONS: ReflectionEntry[] = (logbookData.reflectiveLogbook as unknown[]).map(normalizeReflection).filter((e): e is ReflectionEntry => e !== null);
+const PUBLIC_DAILY: DailyEntry[] = (logbookData.dailyLogbook as unknown[]).map(normalizeDaily).filter((e): e is DailyEntry => e !== null);
+const PUBLIC_REFLECTIONS: ReflectionEntry[] = (logbookData.reflectiveLogbook as unknown[]).map(normalizeReflection).filter((e): e is ReflectionEntry => e !== null);
 
 // ---------- printing (Download PDF) ----------
 
@@ -344,35 +345,144 @@ function InfoBlock({ title, children }: { title: string; children: ReactNode }) 
 }
 
 
+type EvidenceItem = { file: string; caption: string; date?: string };
+
+// Add one line per photo, for example:
+// { file: 'teaching-day-13.jpg', caption: 'Board explanation of parts of speech', date: '2026-10-05' },
+const TEACHING_PHOTOS: EvidenceItem[] = [
+  { file: 'teaching-001.jpg', caption: 'Teaching component, photo 1' },
+  { file: 'teaching-002.jpg', caption: 'Teaching component, photo 2' },
+  { file: 'teaching-003.jpg', caption: 'Teaching component, photo 3' },
+  { file: 'teaching-004.jpg', caption: 'Teaching component, photo 4' },
+  { file: 'teaching-005.jpg', caption: 'Teaching component, photo 5' },
+  { file: 'teaching-006.jpg', caption: 'Teaching component, photo 6' },
+  { file: 'teaching-007.jpg', caption: 'Teaching component, photo 7' },
+  { file: 'teaching-008.jpg', caption: 'Teaching component, photo 8' },
+  { file: 'teaching-009.jpg', caption: 'Teaching component, photo 9' },
+  { file: 'teaching-010.jpg', caption: 'Teaching component, photo 10' },
+  { file: 'teaching-011.jpg', caption: 'Teaching component, photo 11' },
+  { file: 'teaching-012.jpg', caption: 'Teaching component, photo 12' },
+  { file: 'teaching-013.jpg', caption: 'Teaching component, photo 13' },
+  { file: 'teaching-014.jpg', caption: 'Teaching component, photo 14' },
+  { file: 'teaching-015.jpg', caption: 'Teaching component, photo 15' },
+  { file: 'teaching-016.jpg', caption: 'Teaching component, photo 16' },
+  { file: 'teaching-017.jpg', caption: 'Teaching component, photo 17' },
+  { file: 'teaching-018.jpg', caption: 'Teaching component, photo 18' },
+  { file: 'teaching-019.jpg', caption: 'Teaching component, photo 19' },
+  { file: 'teaching-020.jpg', caption: 'Teaching component, photo 20' },
+  { file: 'teaching-021.jpg', caption: 'Teaching component, photo 21' },
+  { file: 'teaching-022.jpg', caption: 'Teaching component, photo 22' },
+  { file: 'teaching-023.jpg', caption: 'Teaching component, photo 23' },
+  { file: 'teaching-024.jpg', caption: 'Teaching component, photo 24' },
+  { file: 'teaching-025.jpg', caption: 'Teaching component, photo 25' },
+  { file: 'teaching-026.jpg', caption: 'Teaching component, photo 26' },
+  { file: 'teaching-027.jpg', caption: 'Teaching component, photo 27' },
+  { file: 'teaching-028.jpg', caption: 'Teaching component, photo 28' },
+];
+const OFFICE_PHOTOS: EvidenceItem[] = [
+  { file: 'office-001.jpg', caption: 'Revenue office, photo 1' },
+  { file: 'office-002.jpg', caption: 'Revenue office, photo 2' },
+  { file: 'office-003.jpg', caption: 'Revenue office, photo 3' },
+  { file: 'office-004.jpg', caption: 'Revenue office, photo 4' },
+];
+const ORGANOGRAM_FILE = 'organogram.png';
+const GLOSSARY: { no: number; category: string; term: string; explanation: string; urdu: string }[] = glossaryData;
+const SHOW_URDU = true; // set to false to hide the Urdu column
+
+function EvidenceGrid({ items }: { items: EvidenceItem[] }) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item) => {
+        const src = `${import.meta.env.BASE_URL}evidence/${item.file}`;
+        return (
+          <figure key={item.file} className="overflow-hidden rounded-2xl bg-ink-2 ring-1 ring-white/10">
+            <a href={src} target="_blank" rel="noopener noreferrer">
+              <img src={src} alt={item.caption} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            </a>
+            <figcaption className="p-4 text-sm leading-relaxed text-mist">
+              {item.date && <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.2em] text-crimson-2">{item.date}</span>}
+              {item.caption}
+            </figcaption>
+          </figure>
+        );
+      })}
+    </div>
+  );
+}
+
+function EvidenceSub({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="mt-10 first:mt-0">
+      <h3 className="mb-4 font-display text-3xl text-bone">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function GlossaryList() {
+  const categories = Array.from(new Set(GLOSSARY.map((g) => g.category)));
+  return (
+    <div className="space-y-3">
+      {categories.map((category) => {
+        const rows = GLOSSARY.filter((g) => g.category === category);
+        return (
+          <details key={category} className="rounded-2xl bg-ink-2 p-5 ring-1 ring-white/10">
+            <summary className="cursor-pointer font-display text-2xl text-bone">
+              {category} <span className="font-sans text-sm text-mist">· {rows.length} terms</span>
+            </summary>
+            <dl className="mt-4 divide-y divide-white/10">
+              {rows.map((row) => (
+                <div key={row.no} className={`grid gap-1 py-3 sm:gap-6 ${SHOW_URDU ? 'sm:grid-cols-[14rem_1fr_9rem]' : 'sm:grid-cols-[14rem_1fr]'}`}>
+                  <dt className="text-sm font-semibold text-bone">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-mist">{row.explanation}</dd>
+                  {SHOW_URDU && <dd className="text-sm text-bone sm:text-right" dir="rtl" lang="ur">{row.urdu}</dd>}
+                </div>
+              ))}
+            </dl>
+          </details>
+        );
+      })}
+    </div>
+  );
+}
+
 export function EvidenceGallery() {
+  const base = import.meta.env.BASE_URL;
+  const hasAny = TEACHING_PHOTOS.length > 0 || OFFICE_PHOTOS.length > 0 || Boolean(ORGANOGRAM_FILE) || GLOSSARY.length > 0;
   return (
     <>
       <SectionHeading
         kicker="Internship Documentation"
         title="Evidence Gallery"
-        aside={
-          <p className="max-w-sm text-sm text-mist">
-            Authentic photographs and supporting evidence from the teaching and
-            non-teaching components of the internship.
-          </p>
-        }
+        aside={<p className="max-w-sm text-sm text-mist">Authentic photographs and supporting evidence from the teaching and non-teaching components of the internship.</p>}
       />
-
       <div className="gutter">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <h3 className="font-display text-3xl text-bone">
-            Evidence will appear here
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-mist">
-            Only genuine records of the internship will be shown in this
-            gallery. Photographs are added only with permission, and
-            confidential government records and students' personal details
-            are never displayed.
-          </p>
-          <p className="mt-4 text-sm text-smoke">
-            No evidence has been added yet.
-          </p>
-        </div>
+        {!hasAny && (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <h3 className="font-display text-3xl text-bone">Evidence will appear here</h3>
+            <p className="mt-3 text-sm leading-relaxed text-mist">Only genuine records of the internship will be shown in this gallery. Photographs are added only with permission, and confidential government records and students' personal details are never displayed.</p>
+            <p className="mt-4 text-sm text-smoke">No evidence has been added yet.</p>
+          </div>
+        )}
+        {TEACHING_PHOTOS.length > 0 && (
+          <EvidenceSub title="Teaching component"><EvidenceGrid items={TEACHING_PHOTOS} /></EvidenceSub>
+        )}
+        {OFFICE_PHOTOS.length > 0 && (
+          <EvidenceSub title="Revenue office"><EvidenceGrid items={OFFICE_PHOTOS} /></EvidenceSub>
+        )}
+        {Boolean(ORGANOGRAM_FILE) && (
+          <EvidenceSub title="Organogram">
+            <a href={`${base}evidence/${ORGANOGRAM_FILE}`} target="_blank" rel="noopener noreferrer">
+              <img src={`${base}evidence/${ORGANOGRAM_FILE}`} alt="Organogram of the placement office" loading="lazy" className="w-full rounded-2xl bg-white ring-1 ring-white/10" />
+            </a>
+          </EvidenceSub>
+        )}
+        {GLOSSARY.length > 0 && (
+          <EvidenceSub title="Glossary">
+            <p className="mb-4 max-w-2xl text-sm leading-relaxed text-mist">A reference glossary of {GLOSSARY.length} terms common in revenue and public administration, with plain-English explanations. They are learning aids, not official legal definitions.</p>
+            <GlossaryList />
+          </EvidenceSub>
+        )}
       </div>
     </>
   );

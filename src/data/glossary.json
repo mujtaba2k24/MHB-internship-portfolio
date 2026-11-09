@@ -1,0 +1,702 @@
+[
+  {
+    "no": 1,
+    "category": "Offices and roles",
+    "term": "Commissioner",
+    "explanation": "The senior officer who supervises administration across a division, which includes several districts.",
+    "urdu": "کمشنر"
+  },
+  {
+    "no": 2,
+    "category": "Offices and roles",
+    "term": "Deputy Commissioner",
+    "explanation": "The senior officer responsible for the administration of a district.",
+    "urdu": "ڈپٹی کمشنر"
+  },
+  {
+    "no": 3,
+    "category": "Offices and roles",
+    "term": "Assistant Commissioner",
+    "explanation": "An officer who manages and supervises administration in an assigned subdivision or taluka area.",
+    "urdu": "اسسٹنٹ کمشنر"
+  },
+  {
+    "no": 4,
+    "category": "Offices and roles",
+    "term": "Mukhtiarkar",
+    "explanation": "A revenue officer in Sindh who deals with taluka-level land records and revenue administration.",
+    "urdu": "مختیارکار"
+  },
+  {
+    "no": 5,
+    "category": "Offices and roles",
+    "term": "Tapedar",
+    "explanation": "A field-level revenue official also known as village staff, who deals with Deh Level land Records and Revenue Administration, also collect, Land Revenue, Land Tax, Water Cess and other tax applicable in the law.",
+    "urdu": "ٹپیدار"
+  },
+  {
+    "no": 6,
+    "category": "Offices and roles",
+    "term": "Revenue Officer",
+    "explanation": "A government officer authorised under Sindh Land Revenue, Act, 1967 to perform revenue functions, such as maintaining land records or handling revenue matters.",
+    "urdu": "ریونیو آفیسر"
+  },
+  {
+    "no": 7,
+    "category": "Offices and roles",
+    "term": "Board of Revenue",
+    "explanation": "BOR also known as Secretariat of Revenue Department to Provincial Government, and mother institution of all revenue administration and related records.",
+    "urdu": "بورڈ آف ریونیو"
+  },
+  {
+    "no": 8,
+    "category": "Offices and roles",
+    "term": "Reader",
+    "explanation": "An office assistant who helps an officer to manage files, case papers, appointments and official correspondence.",
+    "urdu": "ریڈر"
+  },
+  {
+    "no": 9,
+    "category": "Offices and roles",
+    "term": "Clerk",
+    "explanation": "An employee who prepares, records, files and processes office documents.",
+    "urdu": "کلرک"
+  },
+  {
+    "no": 10,
+    "category": "Offices and roles",
+    "term": "Naib Qasid",
+    "explanation": "A support employee who carries files, delivers documents and performs basic office duties.",
+    "urdu": "نائب قاصد"
+  },
+  {
+    "no": 11,
+    "category": "Offices and roles",
+    "term": "Office",
+    "explanation": "A place or department where official work is carried out OR in Revenue Department notified under Sindh Land Revenue, Act 1967.",
+    "urdu": "دفتر"
+  },
+  {
+    "no": 12,
+    "category": "Offices and roles",
+    "term": "Court",
+    "explanation": "Authorized Revenue Court as defined under Sindh Land Revenue Act 1967, where legal cases and disputes are heard and decided. other than Court of Law as defined in Constitution of Pakistan or intaact law/rules",
+    "urdu": "عدالت"
+  },
+  {
+    "no": 13,
+    "category": "Offices and roles",
+    "term": "Department",
+    "explanation": "A government or organisational unit responsible for a particular area of work.",
+    "urdu": "محکمہ"
+  },
+  {
+    "no": 14,
+    "category": "Offices and roles",
+    "term": "Taluka",
+    "explanation": "An administrative area within a district, made up of several localities or revenue areas.",
+    "urdu": "تعلقہ"
+  },
+  {
+    "no": 15,
+    "category": "Offices and roles",
+    "term": "District",
+    "explanation": "An administrative area of a province that contains several smaller areas, such as talukas.",
+    "urdu": "ضلع"
+  },
+  {
+    "no": 16,
+    "category": "Offices and roles",
+    "term": "Deh (revenue village)",
+    "explanation": "A recognised revenue area used for land records and revenue administration.",
+    "urdu": "دیہہ"
+  },
+  {
+    "no": 17,
+    "category": "Land and property",
+    "term": "Land",
+    "explanation": "An area of ground, whether used for farming, buildings or another purpose.",
+    "urdu": "زمین"
+  },
+  {
+    "no": 18,
+    "category": "Land and property",
+    "term": "Agricultural land",
+    "explanation": "Land mainly used for growing crops or other farming activities.",
+    "urdu": "زرعی زمین"
+  },
+  {
+    "no": 19,
+    "category": "Land and property",
+    "term": "Residential plot",
+    "explanation": "A piece of land intended for building or using a home.",
+    "urdu": "رہائشی پلاٹ"
+  },
+  {
+    "no": 20,
+    "category": "Land and property",
+    "term": "Ownership",
+    "explanation": "The legal right to possess, use and control property.",
+    "urdu": "ملکیت"
+  },
+  {
+    "no": 21,
+    "category": "Land and property",
+    "term": "Owner",
+    "explanation": "A person or organisation that legally owns something.",
+    "urdu": "مالک"
+  },
+  {
+    "no": 22,
+    "category": "Land and property",
+    "term": "Possession",
+    "explanation": "The actual holding, occupation or control of property, which may be different from legal ownership.",
+    "urdu": "قبضہ"
+  },
+  {
+    "no": 23,
+    "category": "Land and property",
+    "term": "Tenant",
+    "explanation": "A person who uses or occupies property belonging to someone else, usually in return for rent.",
+    "urdu": "مزارع / کرایہ دار"
+  },
+  {
+    "no": 24,
+    "category": "Land and property",
+    "term": "Lease",
+    "explanation": "An arrangement that allows someone to use property for an agreed period, usually in return for payment.",
+    "urdu": "پٹہ"
+  },
+  {
+    "no": 25,
+    "category": "Land and property",
+    "term": "Survey number",
+    "explanation": "A number assigned to a land parcel so it can be identified in survey and land records.",
+    "urdu": "سروے نمبر"
+  },
+  {
+    "no": 26,
+    "category": "Land and property",
+    "term": "Land measurement",
+    "explanation": "The process of measuring the size and dimensions of a piece of land. In Revenue department, Sindh, also known as \"Demarcation\"",
+    "urdu": "پیمائش"
+  },
+  {
+    "no": 27,
+    "category": "Land and property",
+    "term": "Boundary",
+    "explanation": "The line that marks where one piece of land ends and another begins.",
+    "urdu": "حد"
+  },
+  {
+    "no": 28,
+    "category": "Land and property",
+    "term": "Demarcation",
+    "explanation": "The process of identifying and marking the exact boundaries of a piece of land.",
+    "urdu": "حد بندی"
+  },
+  {
+    "no": 29,
+    "category": "Land and property",
+    "term": "Encroachment",
+    "explanation": "Unauthorised occupation or use of land belonging to another person or the government.",
+    "urdu": "تجاوزات"
+  },
+  {
+    "no": 30,
+    "category": "Land and property",
+    "term": "Record of Rights",
+    "explanation": "An official land record showing recorded owners or holders and the rights associated with land.",
+    "urdu": "حقوقِ ملکیت کا ریکارڈ"
+  },
+  {
+    "no": 31,
+    "category": "Land and property",
+    "term": "Mutation",
+    "explanation": "An update made in official land records when ownership or another recorded land right changes.",
+    "urdu": "انتقال"
+  },
+  {
+    "no": 32,
+    "category": "Land and property",
+    "term": "Extract of record",
+    "explanation": "An official copy or extract of information from the land record, often showing ownership details.",
+    "urdu": "فرد"
+  },
+  {
+    "no": 33,
+    "category": "Land and property",
+    "term": "Inheritance",
+    "explanation": "Property or rights received by a person after someone dies.",
+    "urdu": "وراثت"
+  },
+  {
+    "no": 34,
+    "category": "Land and property",
+    "term": "Heir",
+    "explanation": "A person who is legally entitled to receive property from someone who has died.",
+    "urdu": "وارث"
+  },
+  {
+    "no": 35,
+    "category": "Land and property",
+    "term": "Succession certificate",
+    "explanation": "A court-issued document that identifies a person's entitlement to collect certain debts or securities of someone who has died.",
+    "urdu": "وراثتی سرٹیفکیٹ"
+  },
+  {
+    "no": 36,
+    "category": "Land and property",
+    "term": "Sale deed",
+    "explanation": "A legal document recording the sale and transfer of property from a seller to a buyer.",
+    "urdu": "بیع نامہ"
+  },
+  {
+    "no": 37,
+    "category": "Land and property",
+    "term": "Gift deed",
+    "explanation": "A legal document recording the voluntary transfer of property from one person to another without payment.",
+    "urdu": "ہبہ نامہ"
+  },
+  {
+    "no": 38,
+    "category": "Land and property",
+    "term": "Power of attorney",
+    "explanation": "A legal document authorising another person to act on someone's behalf for specified matters.",
+    "urdu": "مختار نامہ"
+  },
+  {
+    "no": 39,
+    "category": "Land and property",
+    "term": "Partition",
+    "explanation": "The division of jointly owned property into separate shares or portions.",
+    "urdu": "تقسیم"
+  },
+  {
+    "no": 40,
+    "category": "Land and property",
+    "term": "Land revenue",
+    "explanation": "A government charge or tax imposed on land owner under the applicable revenue laws.",
+    "urdu": "مالیہ"
+  },
+  {
+    "no": 41,
+    "category": "Land and property",
+    "term": "Water charges (Abiana)",
+    "explanation": "A charge for water supplied for irrigating agricultural land.",
+    "urdu": "آبیانہ"
+  },
+  {
+    "no": 42,
+    "category": "Land and property",
+    "term": "Compensation",
+    "explanation": "Money or another benefit given to someone for a loss, damage or property taken for public use also known as in Official Language as \"Land Acquisition\"",
+    "urdu": "معاوضہ"
+  },
+  {
+    "no": 43,
+    "category": "Documents and certificates",
+    "term": "Application",
+    "explanation": "A formal request made to an office or authority for action or a service.",
+    "urdu": "درخواست"
+  },
+  {
+    "no": 44,
+    "category": "Documents and certificates",
+    "term": "Application form",
+    "explanation": "A document with questions or fields that a person completes to make a formal request.",
+    "urdu": "درخواست فارم"
+  },
+  {
+    "no": 45,
+    "category": "Documents and certificates",
+    "term": "Affidavit",
+    "explanation": "A written statement of facts that a person formally swears or affirms is true.",
+    "urdu": "حلف نامہ"
+  },
+  {
+    "no": 46,
+    "category": "Documents and certificates",
+    "term": "Stamp paper",
+    "explanation": "Special paper on which certain legal documents are prepared, with the required stamp duty paid.",
+    "urdu": "اسٹامپ پیپر"
+  },
+  {
+    "no": 47,
+    "category": "Documents and certificates",
+    "term": "Certificate",
+    "explanation": "An official document confirming a fact, status, qualification or entitlement.",
+    "urdu": "سرٹیفکیٹ"
+  },
+  {
+    "no": 48,
+    "category": "Documents and certificates",
+    "term": "Domicile certificate",
+    "explanation": "An official document showing the district or area a person is recognised as belonging to for legal or administrative purposes.",
+    "urdu": "ڈومیسائل سرٹیفکیٹ"
+  },
+  {
+    "no": 49,
+    "category": "Documents and certificates",
+    "term": "No Objection Certificate (NOC)",
+    "explanation": "An official document confirming that an authority has no objection to a proposed action.",
+    "urdu": "عدم اعتراض سرٹیفکیٹ"
+  },
+  {
+    "no": 50,
+    "category": "Documents and certificates",
+    "term": "CNIC",
+    "explanation": "The Computerised National Identity Card issued in Pakistan as proof of a person's identity.",
+    "urdu": "قومی شناختی کارڈ"
+  },
+  {
+    "no": 51,
+    "category": "Documents and certificates",
+    "term": "Attested copy",
+    "explanation": "A copy confirmed by an authorised person as matching the original document.",
+    "urdu": "مصدقہ نقل"
+  },
+  {
+    "no": 52,
+    "category": "Documents and certificates",
+    "term": "Original",
+    "explanation": "The first or authentic version of a document, rather than a copy.",
+    "urdu": "اصل"
+  },
+  {
+    "no": 53,
+    "category": "Documents and certificates",
+    "term": "Photocopy",
+    "explanation": "A paper copy made from an original document using a photocopier or scanner.",
+    "urdu": "فوٹو کاپی"
+  },
+  {
+    "no": 54,
+    "category": "Documents and certificates",
+    "term": "Signature",
+    "explanation": "A person's handwritten name or mark used to confirm or approve a document.",
+    "urdu": "دستخط"
+  },
+  {
+    "no": 55,
+    "category": "Documents and certificates",
+    "term": "Thumb impression",
+    "explanation": "A print of a person's thumb used to identify them or confirm a document when required.",
+    "urdu": "انگوٹھے کا نشان"
+  },
+  {
+    "no": 56,
+    "category": "Documents and certificates",
+    "term": "Seal / stamp",
+    "explanation": "An official mark placed on a document to show its source, approval or authenticity.",
+    "urdu": "مہر"
+  },
+  {
+    "no": 57,
+    "category": "Documents and certificates",
+    "term": "Receipt",
+    "explanation": "A document or record confirming that money or an item has been received.",
+    "urdu": "رسید"
+  },
+  {
+    "no": 58,
+    "category": "Documents and certificates",
+    "term": "Challan",
+    "explanation": "A payment form or slip used to deposit a government fee, tax or other amount.",
+    "urdu": "چالان"
+  },
+  {
+    "no": 59,
+    "category": "Documents and certificates",
+    "term": "Notice",
+    "explanation": "An official summon informing a person about something they must know or do or to appear before Revenue Officer authorized.",
+    "urdu": "نوٹس"
+  },
+  {
+    "no": 60,
+    "category": "Documents and certificates",
+    "term": "Order",
+    "explanation": "An official instruction or decision issued by an authorised officer or authority.",
+    "urdu": "حکم"
+  },
+  {
+    "no": 61,
+    "category": "Documents and certificates",
+    "term": "Notification",
+    "explanation": "An official written announcement that communicates a government decision, rule, appointment or instruction.",
+    "urdu": "نوٹیفکیشن"
+  },
+  {
+    "no": 62,
+    "category": "Documents and certificates",
+    "term": "Letter",
+    "explanation": "A written message sent formally from one person or office to another.",
+    "urdu": "خط"
+  },
+  {
+    "no": 63,
+    "category": "Documents and certificates",
+    "term": "Report",
+    "explanation": "A written account of information, facts, activities or findings.",
+    "urdu": "رپورٹ"
+  },
+  {
+    "no": 64,
+    "category": "Documents and certificates",
+    "term": "Register",
+    "explanation": "A book or electronic record used to enter and organise official information.",
+    "urdu": "رجسٹر"
+  },
+  {
+    "no": 65,
+    "category": "Documents and certificates",
+    "term": "Record",
+    "explanation": "Information kept in written, printed or electronic form as evidence or for future reference.",
+    "urdu": "ریکارڈ"
+  },
+  {
+    "no": 66,
+    "category": "Documents and certificates",
+    "term": "File",
+    "explanation": "A collection of related documents kept together for official work or reference.",
+    "urdu": "فائل"
+  },
+  {
+    "no": 67,
+    "category": "Documents and certificates",
+    "term": "Fee",
+    "explanation": "Money paid for a service, application or official process.",
+    "urdu": "فیس"
+  },
+  {
+    "no": 68,
+    "category": "Hearings and procedure",
+    "term": "Hearing",
+    "explanation": "A formal meeting where an officer or court listens to the parties in a matter.",
+    "urdu": "سماعت"
+  },
+  {
+    "no": 69,
+    "category": "Hearings and procedure",
+    "term": "Date of hearing",
+    "explanation": "The scheduled date on which a case or matter is to be heard.",
+    "urdu": "تاریخ پیشی"
+  },
+  {
+    "no": 70,
+    "category": "Hearings and procedure",
+    "term": "Adjournment",
+    "explanation": "The postponement of a hearing or meeting to another date or time.",
+    "urdu": "التوا"
+  },
+  {
+    "no": 71,
+    "category": "Hearings and procedure",
+    "term": "Summons",
+    "explanation": "An official order requiring a person to appear before a court or authorised officer.",
+    "urdu": "طلبی"
+  },
+  {
+    "no": 72,
+    "category": "Hearings and procedure",
+    "term": "Complaint",
+    "explanation": "A statement that reports a problem, unfair treatment or alleged wrongdoing to an authority.",
+    "urdu": "شکایت"
+  },
+  {
+    "no": 73,
+    "category": "Hearings and procedure",
+    "term": "Petition",
+    "explanation": "A formal written request asking an authority or court to take action or provide relief.",
+    "urdu": "عرضی"
+  },
+  {
+    "no": 74,
+    "category": "Hearings and procedure",
+    "term": "Appeal",
+    "explanation": "A request asking a higher authority or court to review a decision.",
+    "urdu": "اپیل"
+  },
+  {
+    "no": 75,
+    "category": "Hearings and procedure",
+    "term": "Decision",
+    "explanation": "A conclusion or choice made by an authorised person or body after considering a matter.",
+    "urdu": "فیصلہ"
+  },
+  {
+    "no": 76,
+    "category": "Hearings and procedure",
+    "term": "Stay order",
+    "explanation": "An order that temporarily stops a particular action or proceeding until further direction or decision.",
+    "urdu": "حکمِ امتناعی"
+  },
+  {
+    "no": 77,
+    "category": "Hearings and procedure",
+    "term": "Witness",
+    "explanation": "A person who saw an event or knows relevant facts and may provide information about them.",
+    "urdu": "گواہ"
+  },
+  {
+    "no": 78,
+    "category": "Hearings and procedure",
+    "term": "Statement",
+    "explanation": "A spoken or written account of facts or information given by a person.",
+    "urdu": "بیان"
+  },
+  {
+    "no": 79,
+    "category": "Hearings and procedure",
+    "term": "Evidence",
+    "explanation": "Information, documents or objects used to support or challenge a claim.",
+    "urdu": "ثبوت"
+  },
+  {
+    "no": 80,
+    "category": "Hearings and procedure",
+    "term": "Inquiry",
+    "explanation": "An official process of asking questions and examining facts about a matter.",
+    "urdu": "انکوائری"
+  },
+  {
+    "no": 81,
+    "category": "Hearings and procedure",
+    "term": "Verification",
+    "explanation": "The process of checking whether information or documents are correct and genuine.",
+    "urdu": "تصدیق"
+  },
+  {
+    "no": 82,
+    "category": "Hearings and procedure",
+    "term": "Inspection",
+    "explanation": "A careful examination of a place, document, property or activity to check its condition or details.",
+    "urdu": "معائنہ"
+  },
+  {
+    "no": 83,
+    "category": "Hearings and procedure",
+    "term": "Objection",
+    "explanation": "A formal expression of disagreement or a reason why a request or action should not be accepted.",
+    "urdu": "اعتراض"
+  },
+  {
+    "no": 84,
+    "category": "Hearings and procedure",
+    "term": "Dispute",
+    "explanation": "A disagreement between people or parties, for example about land, ownership or rights.",
+    "urdu": "تنازعہ"
+  },
+  {
+    "no": 85,
+    "category": "Public dealing and service",
+    "term": "Applicant",
+    "explanation": "A person who submits an application or formal request.",
+    "urdu": "درخواست گزار"
+  },
+  {
+    "no": 86,
+    "category": "Public dealing and service",
+    "term": "Visitor",
+    "explanation": "A person who comes to an office to seek information, assistance or a service.",
+    "urdu": "ملاقاتی"
+  },
+  {
+    "no": 87,
+    "category": "Public dealing and service",
+    "term": "Token",
+    "explanation": "A numbered slip or marker used to manage the order in which people are served.",
+    "urdu": "ٹوکن"
+  },
+  {
+    "no": 88,
+    "category": "Public dealing and service",
+    "term": "Queue",
+    "explanation": "A line of people waiting for their turn.",
+    "urdu": "قطار"
+  },
+  {
+    "no": 89,
+    "category": "Public dealing and service",
+    "term": "Counter",
+    "explanation": "A service desk where staff receive applications, documents or questions from the public.",
+    "urdu": "کاؤنٹر"
+  },
+  {
+    "no": 90,
+    "category": "Public dealing and service",
+    "term": "Waiting area",
+    "explanation": "A designated place where visitors sit or stand until they are called or assisted.",
+    "urdu": "انتظار گاہ"
+  },
+  {
+    "no": 91,
+    "category": "Public dealing and service",
+    "term": "Guidance",
+    "explanation": "Information or advice that helps someone understand what to do or how to complete a process.",
+    "urdu": "رہنمائی"
+  },
+  {
+    "no": 92,
+    "category": "Public dealing and service",
+    "term": "Procedure",
+    "explanation": "The established steps that must be followed to complete a task or official process.",
+    "urdu": "طریقہ کار"
+  },
+  {
+    "no": 93,
+    "category": "Public dealing and service",
+    "term": "Requirement",
+    "explanation": "Something that must be provided or completed before a request can be processed.",
+    "urdu": "شرط"
+  },
+  {
+    "no": 94,
+    "category": "Public dealing and service",
+    "term": "Approval",
+    "explanation": "Official permission or acceptance given by an authorised person or authority.",
+    "urdu": "منظوری"
+  },
+  {
+    "no": 95,
+    "category": "Public dealing and service",
+    "term": "Pending",
+    "explanation": "Not yet completed or decided; still awaiting action.",
+    "urdu": "زیرِ التوا"
+  },
+  {
+    "no": 96,
+    "category": "Public dealing and service",
+    "term": "Under process",
+    "explanation": "Currently being examined or handled by the relevant office.",
+    "urdu": "زیرِ کارروائی"
+  },
+  {
+    "no": 97,
+    "category": "Public dealing and service",
+    "term": "Public notice",
+    "explanation": "An official announcement intended to inform members of the public.",
+    "urdu": "عوامی اطلاع"
+  },
+  {
+    "no": 98,
+    "category": "Public dealing and service",
+    "term": "Permission",
+    "explanation": "Official consent allowing a person to do something.",
+    "urdu": "اجازت"
+  },
+  {
+    "no": 99,
+    "category": "Public dealing and service",
+    "term": "Confidentiality",
+    "explanation": "The duty to keep private or sensitive information from being shared without authorisation.",
+    "urdu": "رازداری"
+  },
+  {
+    "no": 100,
+    "category": "Public dealing and service",
+    "term": "Government",
+    "explanation": "Government of Sindh.",
+    "urdu": "حکومت"
+  }
+]
