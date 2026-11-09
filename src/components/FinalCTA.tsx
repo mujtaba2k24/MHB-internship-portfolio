@@ -30,13 +30,13 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Next Stage
+        THANK YOU FOR WATCHING
       </motion.p>
       <motion.h2
         className="relative font-display leading-[0.85] text-bone"
         style={{ fontSize: 'clamp(3.4rem, 13vw, 12rem)', letterSpacing: spacing, filter: blur, opacity }}
       >
-        FIELDWORK IN PROGRESS
+        INTERNSHIP COMPLETED
       </motion.h2>
 
       <motion.div
