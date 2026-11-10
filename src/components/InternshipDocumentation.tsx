@@ -319,42 +319,47 @@ export function InternshipReport() {
   );
 }
 
-function DocumentPlaceholder({ title, description }: { title: string; description: string }) {
-  return <><SectionHeading kicker="Document record" title={title} aside={<p className="max-w-sm text-sm text-mist">Only authentic documents supplied by the university or supervisor will be shown here.</p>} /><div className="gutter"><div className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/20 bg-white/[0.03] px-6 text-center"><div className="font-display text-6xl text-bone/20">MHB</div><h3 className="mt-4 font-display text-3xl text-bone">Document not provided</h3><p className="mt-3 max-w-xl text-sm leading-relaxed text-mist">{description}</p><p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-crimson-2">Placeholder · not an official document</p></div></div></>;
+export function SupervisorFeedback() {
+  const img = `${import.meta.env.BASE_URL}documents/supervisor-feedback.jpg`;
+  return (
+    <>
+      <SectionHeading
+        kicker="Document record"
+        title="Supervisor Feedback Form"
+        aside={<p className="max-w-sm text-sm text-mist">The supervisor's evaluation and feedback form for the internship.</p>}
+      />
+      <div className="gutter">
+        <a href={img} target="_blank" rel="noopener noreferrer">
+          <img src={img} alt="Supervisor feedback and evaluation form" loading="lazy" className="w-full max-w-3xl rounded-2xl bg-white ring-1 ring-white/10" />
+        </a>
+        <p className="mt-3 text-xs text-smoke">Click the image to open it full size.</p>
+      </div>
+    </>
+  );
 }
-export function SupervisorFeedback() { return <DocumentPlaceholder title="Supervisor Feedback Form" description="The actual supervisor feedback form, comments, marks, signatures, and verification will appear here only after the real document is supplied." />; }
 export function AcceptanceLetter() {
   const pdf = `${import.meta.env.BASE_URL}documents/acceptance-letter.pdf`;
+  const cert = `${import.meta.env.BASE_URL}documents/completion-certificate.jpg`;
   return (
     <>
       <SectionHeading
         kicker="Document record"
         title="Internship Acceptance Letter"
-        aside={<p className="max-w-sm text-sm text-mist">The official acceptance letter for the placement with the Revenue Administration of Hyderabad Rural.</p>}
+        aside={<p className="max-w-sm text-sm text-mist">The official acceptance letter for the placement with the Revenue Administration of Hyderabad Rural, and the certificate of completion.</p>}
       />
       <div className="gutter">
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="max-w-2xl text-sm leading-relaxed text-mist sm:text-base">
-            Open the letter in a new tab, or download a copy.
-          </p>
+          <p className="max-w-2xl text-sm leading-relaxed text-mist sm:text-base">Open the letter in a new tab, or download a copy.</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href={pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="min-h-11 rounded-md bg-bone px-5 py-3 text-sm font-bold text-ink"
-            >
-              Open PDF
-            </a>
-            <a
-              href={pdf}
-              download="acceptance-letter.pdf"
-              className="min-h-11 rounded-md border border-white/20 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone"
-            >
-              Download PDF
-            </a>
+            <a href={pdf} target="_blank" rel="noopener noreferrer" className="min-h-11 rounded-md bg-bone px-5 py-3 text-sm font-bold text-ink">Open PDF</a>
+            <a href={pdf} download="acceptance-letter.pdf" className="min-h-11 rounded-md border border-white/20 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone">Download PDF</a>
           </div>
         </div>
+        <h3 className="mb-4 mt-10 font-display text-3xl text-bone">Certificate of completion</h3>
+        <a href={cert} target="_blank" rel="noopener noreferrer">
+          <img src={cert} alt="Internship certificate of completion" loading="lazy" className="w-full max-w-3xl rounded-2xl bg-white ring-1 ring-white/10" />
+        </a>
+        <p className="mt-3 text-xs text-smoke">Click the image to open it full size.</p>
       </div>
     </>
   );

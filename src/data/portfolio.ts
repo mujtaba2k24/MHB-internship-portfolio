@@ -394,7 +394,7 @@ export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: s
   evidence: { nav: 'Evidence Gallery', card: 'Evidence Gallery', meta: 'Internship photographs and supporting evidence', palette: violet },
   report: { nav: 'Internship Report', card: 'Internship Report', meta: 'Final report • PDF', palette: crimson },
   feedback: { nav: 'Supervisor Feedback', card: 'Supervisor Feedback', meta: 'Placeholder until supplied', palette: violet },
-  acceptance: { nav: 'Acceptance Letter', card: 'Acceptance Letter', meta: 'Official placement letter • PDF', palette: amber },
+  acceptance: { nav: 'Acceptance Letter', card: 'Acceptance Letter', meta: 'Placement letter • completion certificate', palette: amber },
   originals: { nav: 'Academic & Internship Work', card: 'Academic Work', meta: `${projects.length} documented activities`, palette: crimson },
   picks: { nav: 'Key Learning Highlights', card: 'Learning Highlights', meta: 'Themes and records', palette: jade },
   skills: { nav: 'Applied Linguistics Competencies', card: 'Competencies', meta: `${skillCategories.length} areas of focus`, palette: ocean },
